@@ -1,6 +1,7 @@
 using Polly;
 using SGL.Integrations.AutoMapper;
 using SGL.Integrations.Htpp.Cliente;
+using SGL.Integrations.Htpp.ContasReceber;
 using SGL.Integrations.Htpp.Fornecedor;
 using SGL.Integrations.Htpp.Produto;
 using SGL.Integrations.Interfaces;
@@ -17,6 +18,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<HttpClienteDelegatingHandler>();
 builder.Services.AddScoped<HttpFornecedorDelegatingHandler>();
 builder.Services.AddScoped<HttpProdutoDelegatingHandler>();
+builder.Services.AddScoped<HttpContasReceberDelegatingHandler>();
 
 builder.Services.AddHttpClient<IClienteClient, ClienteClient>()
       .AddHttpMessageHandler<HttpClienteDelegatingHandler>()
@@ -33,6 +35,11 @@ builder.Services.AddHttpClient<IProdutoClient, ProdutoClient>()
       .AddPolicyHandler(PollyExtensions.GetRetryPolicy())
       .AddTransientHttpErrorPolicy(p => p.CircuitBreakerAsync(2, TimeSpan.FromSeconds(timeWait)));
 
+builder.Services.AddHttpClient<IContasReceberClient, ContasReceberClient>()
+      .AddHttpMessageHandler<HttpContasReceberDelegatingHandler>()
+      .AddPolicyHandler(PollyExtensions.GetRetryPolicy())
+      .AddTransientHttpErrorPolicy(p => p.CircuitBreakerAsync(2, TimeSpan.FromSeconds(timeWait)));
+
 //Options
 builder.Services.Configure<APIsOptions>(builder.Configuration.GetSection(nameof(APIsOptions)));
 
@@ -40,6 +47,7 @@ builder.Services.Configure<APIsOptions>(builder.Configuration.GetSection(nameof(
 builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<IFornecedorService, FornecedorService>();
 builder.Services.AddScoped<IProdutoService, ProdutoService>();
+builder.Services.AddScoped<IContasReceberService, ContasReceberService>();
 
 // AutoMapping
 builder.Services.AddAutoMapperSetup();

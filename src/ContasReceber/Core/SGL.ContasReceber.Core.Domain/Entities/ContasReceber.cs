@@ -1,10 +1,11 @@
 ﻿using SGL.ContasReceber.Core.Domain.Enuns;
+using SGL.ContasReceber.Core.Domain.Validations;
 using SGL.Resource.Domain;
 using SGL.Resource.Interfaces;
 
 namespace SGL.ContasReceber.Core.Domain.Entities
 {
-    public class ContasReceber : Entity, IAggregateRoot
+    public sealed class ContasReceber : Entity, IAggregateRoot
     {
         public Guid ClienteId { get; private set; }
         public string? Descricao { get; private set; }
@@ -21,11 +22,19 @@ namespace SGL.ContasReceber.Core.Domain.Entities
             DataVencimento = dataVencimento;
             Valor = valor;
             Situacao = ESituacao.A_Receber;
+
+            IsValid();
         }
 
         public void AlterarSituacaoParaPago()
         {
             Situacao = ESituacao.Pago;
+        }
+
+        public override bool IsValid()
+        {
+            ValidationResult = new ContasReceberValidation().Validate(this);
+            return ValidationResult.IsValid;
         }
     }
 }

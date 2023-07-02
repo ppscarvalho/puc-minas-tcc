@@ -33,6 +33,8 @@ namespace SGL.Fornecedor.Core.Domain.Entities
             Celular = celular;
             Email = email;
             Endereco = endereco;
+
+            IsValid();
         }
 
         public override bool IsValid()

@@ -30,6 +30,8 @@ namespace SGL.Cliente.Core.Domain.Entities
             DataNascimento = dataNascimento;
             Email = email;
             Endereco = endereco;
+
+            IsValid();
         }
 
         public override bool IsValid()
