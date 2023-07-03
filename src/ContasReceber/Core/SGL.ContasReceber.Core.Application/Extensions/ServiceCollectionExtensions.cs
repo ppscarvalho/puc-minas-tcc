@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SGL.ContasReceber.Core.Application.AutoMappings;
 using SGL.ContasReceber.Core.Application.Commands.ContasReceber;
-using SGL.ContasReceber.Core.Application.Consumers;
 using SGL.ContasReceber.Core.Application.Handlers;
 using SGL.ContasReceber.Core.Application.Queries.ContasReceber;
 using SGL.MessageQueue.Configuration;
@@ -45,14 +44,14 @@ namespace SGL.ContasReceber.Core.Application.Extensions
         {
             var builder = new BuilderBus(configuration["RabbitMq:ConnectionString"])
             {
-                Consumers = new HashSet<Consumer>
-                {
-                    new Consumer(
-                        queue: configuration["RabbitMq:ConsumerContasReceber"],
-                        typeConsumer: typeof(RPCConsumerContasRecebere),
-                        quorumQueue: true
-                    )
-                },
+                //Consumers = new HashSet<Consumer>
+                //{
+                //    new Consumer(
+                //        queue: configuration["RabbitMq:ConsumerContasReceber"],
+                //        typeConsumer: typeof(RPCConsumerContasRecebere),
+                //        quorumQueue: true
+                //    )
+                //},
 
                 Publishers = new HashSet<IPublisher>
                 {

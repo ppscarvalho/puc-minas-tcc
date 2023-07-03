@@ -15,7 +15,7 @@ namespace SGL.Integrations.Htpp.ContasReceber
             _apisOptions = options.Value;
         }
 
-        public async Task<IEnumerable<ContasReceberViewModel>> ObterTodasContasRecebers()
+        public async Task<IEnumerable<ContasReceberViewModel>> ObterTodasContasReceber()
         {
             var result = await Get($"{_apisOptions.BaseUrlContasReceber}/api/contasreceber/obter-todas");
             var ContasReceber = result.DeserializeObject<IEnumerable<ContasReceberViewModel>>();

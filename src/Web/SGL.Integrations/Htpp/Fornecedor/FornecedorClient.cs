@@ -24,7 +24,7 @@ namespace SGL.Integrations.Htpp.Fornecedor
         public async Task<FornecedorViewModel> ObterFornecedorPorId(Guid id)
         {
             var headers = new Dictionary<string, string> { { "authorization", $"Bearer {Guid.NewGuid}" } };
-            var result = await Post($"{_apisOptions.BaseUrlFornecedor}/api/fornecedor/obter-por-id", new { Id = id }, headers);
+            var result = await Get($"{_apisOptions.BaseUrlFornecedor}/api/fornecedor/obter-por-id", new { Id = id }, headers);
             return result.DeserializeObject<FornecedorViewModel>();
         }
     }

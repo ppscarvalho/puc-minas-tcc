@@ -15,7 +15,7 @@ namespace SGL.WebUI.Controllers
         // GET: CustomerController
         public async Task<IActionResult> Index()
         {
-            var contasReceber = await _contasReceberService.ObterTodasContasRecebers();
+            var contasReceber = await _contasReceberService.ObterTodasContasReceber();
             return View(contasReceber);
         }
 

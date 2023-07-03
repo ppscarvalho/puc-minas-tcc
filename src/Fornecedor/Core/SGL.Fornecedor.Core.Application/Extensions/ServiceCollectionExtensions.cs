@@ -11,11 +11,9 @@ using SGL.Fornecedor.Core.Application.Models;
 using SGL.Fornecedor.Core.Application.Queries.Fornecedor;
 using SGL.MessageQueue.Configuration;
 using SGL.MessageQueue.Extensions;
-using SGL.MessageQueue.Models;
 using SGL.Resource.Communication.Mediator;
 using SGL.Resource.Util;
 using System.Reflection;
-using IPublisher = SGL.MessageQueue.Configuration.IPublisher;
 namespace SGL.Fornecedor.Core.Application.Extensions
 {
     public static class ServiceCollectionExtensions
@@ -54,10 +52,10 @@ namespace SGL.Fornecedor.Core.Application.Extensions
                     )
                 },
 
-                Publishers = new HashSet<IPublisher>
-                {
-                    new Publisher<RequestIn>(queue: configuration["RabbitMq:ConsumerFornecedor"]),
-                },
+                //Publishers = new HashSet<IPublisher>
+                //{
+                //    new Publisher<RequestIn>(queue: configuration["RabbitMq:ConsumerFornecedor"]),
+                //},
 
                 Retry = new Retry(retryCount: 3, interval: TimeSpan.FromSeconds(60))
             };

@@ -20,9 +20,9 @@ namespace SGL.Integrations.Services
             return await _contasReceberClient.ObterContasReceberPorId(id);
         }
 
-        public async Task<IEnumerable<ContasReceberViewModel>> ObterTodasContasRecebers()
+        public async Task<IEnumerable<ContasReceberViewModel>> ObterTodasContasReceber()
         {
-            return await _contasReceberClient.ObterTodasContasRecebers();
+            return await _contasReceberClient.ObterTodasContasReceber();
         }
     }
 }

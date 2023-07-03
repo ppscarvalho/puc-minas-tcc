@@ -24,7 +24,7 @@ namespace SGL.Integrations.Htpp.Cliente
         public async Task<ClienteViewModel> ObterClientePorId(Guid id)
         {
             var headers = new Dictionary<string, string> { { "authorization", $"Bearer {Guid.NewGuid}" } };
-            var result = await Post($"{_apisOptions.BaseUrlCliente}/api/cliente/obter-por-id", new { Id = id }, headers);
+            var result = await Get($"{_apisOptions.BaseUrlCliente}/api/cliente/obter-por-id", new { Id = id }, headers);
             return result.DeserializeObject<ClienteViewModel>();
         }
     }

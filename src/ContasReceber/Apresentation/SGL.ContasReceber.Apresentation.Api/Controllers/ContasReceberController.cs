@@ -59,7 +59,7 @@ namespace SGL.ContasReceber.Apresentation.Api.Controllers
         {
             _logger.LogInformation("Obter todas as contas a receber");
             var result = await _mediatorQuery.Send(new ObterTodasContasReceberQuery());
-            await ObterClientePorIdCliente(result);
+            await ObterClientePorId(result);
             return Ok(result);
         }
 
@@ -95,7 +95,7 @@ namespace SGL.ContasReceber.Apresentation.Api.Controllers
                 return BadRequest(GetMessageError());
         }
 
-        private async Task ObterClientePorIdCliente(IEnumerable<ResponseContasReceberOut> result)
+        private async Task ObterClientePorId(IEnumerable<ResponseContasReceberOut> result)
         {
             var mapIn = new RequestIn
             {

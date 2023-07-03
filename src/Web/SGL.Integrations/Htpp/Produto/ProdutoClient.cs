@@ -25,7 +25,7 @@ namespace SGL.Integrations.Htpp.Produto
         public async Task<ProdutoViewModel> ObterProdutoPorId(Guid id)
         {
             var headers = new Dictionary<string, string> { { "authorization", $"Bearer {Guid.NewGuid}" } };
-            var result = await Post($"{_apisOptions.BaseUrlProduto}/api/produto/obter-por-id", new { Id = id }, headers);
+            var result = await Get($"{_apisOptions.BaseUrlProduto}/api/produto/obter-por-id", new { Id = id }, headers);
             return result.DeserializeObject<ProdutoViewModel>();
         }
     }
