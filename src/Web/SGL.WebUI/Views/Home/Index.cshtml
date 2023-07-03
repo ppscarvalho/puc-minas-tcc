@@ -26,22 +26,9 @@
         <div class="container-fluid">
             <!-- Small boxes (Stat box) -->
             <div class="row">
-                <div class="col-md-3 col-sm-6 col-12">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-success">
-                            <img src="~/icones/bills-to-pay.png" />
-                        </span>
-                        <div class="info-box-content">
-                            <a asp-controller="ContasPagar" asp-action="Index" title="Contas a Pagar">
-                                <span class="info-box-text">Contas a Pagar</span>
-                            </a>
-                        </div>
-                        <!-- /.info-box-content -->
-                    </div>
-                    <!-- /.info-box -->
-                </div>
+
                 <!-- ./col -->
-                <div class="col-md-3 col-sm-6 col-12">
+                <div class="col-md-4 col-sm-6 col-12">
                     <div class="info-box">
                         <span class="info-box-icon bg-warning">
                             <img src="~/icones/customer.png" />
@@ -55,21 +42,9 @@
                     </div>
                     <!-- /.info-box -->
                 </div>
+
                 <!-- ./col -->
-                <div class="col-md-3 col-sm-6 col-12">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-success">
-                            <img src="~/icones/cashier.png" />
-                        </span>
-                        <div class="info-box-content">
-                            <span class="info-box-text">Caixa</span>
-                        </div>
-                        <!-- /.info-box-content -->
-                    </div>
-                    <!-- /.info-box -->
-                </div>
-                <!-- ./col -->
-                <div class="col-md-3 col-sm-6 col-12">
+                <div class="col-md-4 col-sm-6 col-12">
                     <div class="info-box">
                         <span class="info-box-icon bg-info">
                             <img src="~/icones/supplier.png" />
@@ -84,10 +59,8 @@
                     <!-- /.info-box -->
                 </div>
                 <!-- ./col -->
-            </div>
 
-            <div class="row">
-                <div class="col-md-3 col-sm-6 col-12">
+                <div class="col-md-4 col-sm-6 col-12">
                     <div class="info-box">
                         <span class="info-box-icon bg-info">
                             <img src="~/icones/product.png" />
@@ -101,9 +74,11 @@
                     </div>
                     <!-- /.info-box -->
                 </div>
+            </div>
 
+            <div class="row">
                 <!-- ./col -->
-                <div class="col-md-3 col-sm-6 col-12">
+                <div class="col-md-4 col-sm-6 col-12">
                     <div class="info-box">
                         <span class="info-box-icon bg-success">
                             <img src="~/icones/bills-to-receive.png" />
@@ -118,8 +93,39 @@
                     <!-- /.info-box -->
                 </div>
 
+                <div class="col-md-4 col-sm-6 col-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-success">
+                            <img src="~/icones/bills-to-pay.png" />
+                        </span>
+                        <div class="info-box-content">
+                            <a asp-controller="ContasPagar" asp-action="Index" title="Contas a Pagar">
+                                <span class="info-box-text">Contas a Pagar</span>
+                            </a>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+
                 <!-- ./col -->
-                <div class="col-md-3 col-sm-6 col-12">
+                <div class="col-md-4 col-sm-6 col-12">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-success">
+                            <img src="~/icones/cashier.png" />
+                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Caixa</span>
+                        </div>
+                        <!-- /.info-box-content -->
+                    </div>
+                    <!-- /.info-box -->
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- ./col -->
+                <div class="col-md-4 col-sm-6 col-12">
                     <div class="info-box">
                         <span class="info-box-icon bg-danger">
                             <img src="~/icones/invoices.png" />
@@ -131,23 +137,8 @@
                     </div>
                     <!-- /.info-box -->
                 </div>
-
-                <!-- ./col -->
-                <div class="col-md-3 col-sm-6 col-12">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-info">
-                            <img src="~/icones/report.png" />
-                        </span>
-                        <div class="info-box-content">
-                            <a asp-controller="Category" asp-action="Index" title="Consultar Categoria">
-                                <span class="info-box-text">Categoria</span>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- /.info-box -->
-                </div>
-                <!-- ./col -->
             </div>
+
             <!-- /.row -->
         </div><!-- /.container-fluid -->
     </section>
