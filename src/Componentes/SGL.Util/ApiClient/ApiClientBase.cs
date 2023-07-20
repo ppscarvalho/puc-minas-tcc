@@ -1,4 +1,9 @@
-﻿using System;
+﻿using SGL.Util.Exceptions;
+using SGL.Util.Extensions;
+using SGL.Util.Helpers;
+using SGL.Util.Helpers.Logs;
+using SGL.Util.Result;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -6,11 +11,6 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-using SGL.Util.Exceptions;
-using SGL.Util.Extensions;
-using SGL.Util.Helpers;
-using SGL.Util.Helpers.Logs;
-using SGL.Util.Result;
 
 namespace SGL.Util.ApiClient
 {
@@ -27,8 +27,13 @@ namespace SGL.Util.ApiClient
             _httpClient = httpClient;
         }
 
-        public virtual async Task<string> Post(string urlServico, object obj, Dictionary<string, string> headers = null)
+        public virtual async Task<string> Post(string urlServico, object? obj, Dictionary<string, string> headers = null)
         {
+            if (obj is null)
+            {
+                throw new ArgumentNullException(nameof(obj));
+            }
+
             _headers = headers;
 
             var request = new HttpRequestMessage(HttpMethod.Post, urlServico);
@@ -36,8 +41,13 @@ namespace SGL.Util.ApiClient
             return await SendRequest(request, obj);
         }
 
-        public virtual async Task<string> Put(string urlServico, object obj, Dictionary<string, string> headers = null)
+        public virtual async Task<string> Put(string urlServico, object? obj, Dictionary<string, string> headers = null)
         {
+            if (obj is null)
+            {
+                throw new ArgumentNullException(nameof(obj));
+            }
+
             _headers = headers;
 
             var request = new HttpRequestMessage(HttpMethod.Put, urlServico);
@@ -45,7 +55,7 @@ namespace SGL.Util.ApiClient
             return await SendRequest(request, obj);
         }
 
-        public virtual async Task<string> Get(string urlServico, object obj = null, Dictionary<string, string> headers = null)
+        public virtual async Task<string> Get(string urlServico, object? obj = null, Dictionary<string, string> headers = null)
         {
             _headers = headers;
 
@@ -53,7 +63,7 @@ namespace SGL.Util.ApiClient
 
             return await SendRequest(request, obj);
         }
-        public virtual async Task<string> Delete(string urlServico, object obj = null, Dictionary<string, string> headers = null)
+        public virtual async Task<string> Delete(string urlServico, object? obj = null, Dictionary<string, string> headers = null)
         {
             _headers = headers;
 
@@ -74,7 +84,7 @@ namespace SGL.Util.ApiClient
                 }
             }
         }
-        protected virtual void AddContent(HttpRequestMessage request, object obj)
+        protected virtual void AddContent(HttpRequestMessage request, object? obj)
         {
             if (obj != null)
             {
@@ -90,7 +100,7 @@ namespace SGL.Util.ApiClient
             request.Content = new StringContent(@params, Encoding.UTF8, "application/x-www-form-urlencoded");
         }
 
-        protected virtual async Task<string> SendRequest(HttpRequestMessage request, object obj)
+        protected virtual async Task<string> SendRequest(HttpRequestMessage request, object? obj)
         {
             AddContent(request, obj);
             AddHeaders(request);

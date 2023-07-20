@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SGL.Integrations.Interfaces;
 
 namespace SGL.WebUI.Controllers
@@ -13,17 +15,26 @@ namespace SGL.WebUI.Controllers
         }
 
         // GET: CustomerController
+        [Authorize]
         public async Task<IActionResult> Index()
         {
-            var cliente = await _clienteService.ObterTodosClientes();
+            var token = await GetToken();
+            var cliente = await _clienteService.ObterTodosClientes(token);
             return View(cliente);
         }
 
         // GET: CustomerController/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(Guid id)
         {
-            var cliente = await _clienteService.ObterClientePorId(id);
+            var token = await GetToken();
+            var cliente = await _clienteService.ObterClientePorId(id, token);
             return View(cliente);
+        }
+
+        private async Task<string> GetToken()
+        {
+            return await HttpContext.GetTokenAsync("access_token");
         }
     }
 }

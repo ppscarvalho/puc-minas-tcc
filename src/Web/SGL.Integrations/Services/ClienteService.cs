@@ -15,14 +15,14 @@ namespace SGL.Integrations.Services
             _ClienteClient = ClienteClient;
         }
 
-        public async Task<ClienteViewModel> ObterClientePorId(Guid id)
+        public async Task<ClienteViewModel> ObterClientePorId(Guid id, string token)
         {
-            return await _ClienteClient.ObterClientePorId(id);
+            return await _ClienteClient.ObterClientePorId(id, token);
         }
 
-        public async Task<IEnumerable<ClienteViewModel>> ObterTodosClientes()
+        public async Task<IEnumerable<ClienteViewModel>> ObterTodosClientes(string token)
         {
-            return await _ClienteClient.ObterTodosClientes();
+            return await _ClienteClient.ObterTodosClientes(token);
         }
 
         public IEnumerable<EstadoViewModel> TodosEstados()

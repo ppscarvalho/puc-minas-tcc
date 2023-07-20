@@ -4,8 +4,8 @@ namespace SGL.Integrations.Interfaces
 {
     public interface IClienteService
     {
-        Task<ClienteViewModel> ObterClientePorId(Guid id);
-        Task<IEnumerable<ClienteViewModel>> ObterTodosClientes();
+        Task<ClienteViewModel> ObterClientePorId(Guid id, string token);
+        Task<IEnumerable<ClienteViewModel>> ObterTodosClientes(string token);
         IEnumerable<EstadoViewModel> TodosEstados();
     }
 }

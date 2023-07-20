@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication;
 using Polly;
 using SGL.Integrations.AutoMapper;
 using SGL.Integrations.Htpp.Cliente;
@@ -57,6 +58,28 @@ builder.Services.AddScoped<IProdutoService, ProdutoService>();
 builder.Services.AddScoped<IContasReceberService, ContasReceberService>();
 builder.Services.AddScoped<IContasPagarService, ContasPagarService>();
 
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = "Cookies";
+    options.DefaultChallengeScheme = "oidc";
+})
+    .AddCookie("Cookies", c => c.ExpireTimeSpan = TimeSpan.FromMinutes(10))
+    .AddOpenIdConnect("oidc", options =>
+    {
+        options.Authority = builder.Configuration["APIsOptions:IdentityServer"];
+        options.GetClaimsFromUserInfoEndpoint = true;
+        options.ClientId = "Sistema Gestao Loja";
+        options.ClientSecret = "sistema_gestao_loja_secreto";
+        options.ResponseType = "code";
+        options.ClaimActions.MapJsonKey("role", "role", "role");
+        options.ClaimActions.MapJsonKey("sub", "sub", "sub");
+        options.TokenValidationParameters.NameClaimType = "name";
+        options.TokenValidationParameters.RoleClaimType = "role";
+        options.Scope.Add("Sistema-Gestao-Loja");
+        options.SaveTokens = true;
+    });
+
+
 // AutoMapping
 builder.Services.AddAutoMapperSetup();
 var app = builder.Build();
@@ -74,6 +97,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

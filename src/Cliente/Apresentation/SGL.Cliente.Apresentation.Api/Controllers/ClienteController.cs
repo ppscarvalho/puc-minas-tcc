@@ -1,6 +1,8 @@
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SGL.Cliente.Apresentation.Api.Configurations;
 using SGL.Cliente.Apresentation.Api.Controllers.BaseController;
 using SGL.Cliente.Core.Application.Commands.Cliente;
 using SGL.Cliente.Core.Application.Models;
@@ -37,6 +39,7 @@ namespace SGL.Cliente.Apresentation.Api.Controllers
         [Route("obter-por-id")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(ClienteModel), StatusCodes.Status200OK)]
+        [Authorize]
         public async Task<IActionResult> ObterClientePorId([FromQuery] Guid id)
         {
             _logger.LogInformation("Obter todos os clientes");
@@ -49,6 +52,7 @@ namespace SGL.Cliente.Apresentation.Api.Controllers
         [Route("obter-todos")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(ClienteModel), StatusCodes.Status200OK)]
+        [Authorize]
         public async Task<IActionResult> ObterTodosClientes()
         {
             _logger.LogInformation("Obter todos os clientes");
@@ -73,7 +77,7 @@ namespace SGL.Cliente.Apresentation.Api.Controllers
         }
 
         [HttpPost]
-        [Route("atualizar")]
+        [Authorize(Roles = Role.Admin)]
         [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status500InternalServerError)]
