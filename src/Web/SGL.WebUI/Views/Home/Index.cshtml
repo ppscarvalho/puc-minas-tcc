@@ -4,143 +4,174 @@
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0">Dashboard</h1>
-                </div><!-- /.col -->
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Dashboard v1</li>
-                    </ol>
-                </div><!-- /.col -->
-            </div><!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
-    <!-- Main content -->
-    <section class="content">
-        <div class="container-fluid">
-            <!-- Small boxes (Stat box) -->
-            <div class="row">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Dashboard</h1>
+                    </div><!-- /.col -->
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Dashboard v1</li>
+                        </ol>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <!-- Small boxes (Stat box) -->
+                <div class="row">
 
-                <!-- ./col -->
-                <div class="col-md-4 col-sm-6 col-12">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-warning">
-                            <img src="~/icones/customer.png" />
-                        </span>
-                        <div class="info-box-content">
-                            <a asp-controller="Cliente" asp-action="Index" title="Cliente">
-                                <span class="info-box-text">Cliente</span>
-                            </a>
+                    <!-- ./col -->
+                    <div class="col-md-4 col-sm-6 col-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-warning">
+                                <img src="~/icones/customer.png" />
+                            </span>
+                            <div class="info-box-content">
+                                <a asp-controller="Cliente" asp-action="Index" title="Cliente">
+                                    <span class="info-box-text">Cliente</span>
+                                </a>
+                            </div>
+                            <!-- /.info-box-content -->
                         </div>
-                        <!-- /.info-box-content -->
+                        <!-- /.info-box -->
                     </div>
-                    <!-- /.info-box -->
+
+                    <!-- ./col -->
+                    <div class="col-md-4 col-sm-6 col-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-info">
+                                <img src="~/icones/supplier.png" />
+                            </span>
+                            <div class="info-box-content">
+                                <a asp-controller="Fornecedor" asp-action="Index" title="c">
+                                    <span class="info-box-text">Fornecedor</span>
+                                </a>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <!-- ./col -->
+
+                    <div class="col-md-4 col-sm-6 col-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-info">
+                                <img src="~/icones/product.png" />
+                            </span>
+                            <div class="info-box-content">
+                                <a asp-controller="Produto" asp-action="Index" title="Produto">
+                                    <span class="info-box-text">Produto</span>
+                                </a>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
                 </div>
 
-                <!-- ./col -->
-                <div class="col-md-4 col-sm-6 col-12">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-info">
-                            <img src="~/icones/supplier.png" />
-                        </span>
-                        <div class="info-box-content">
-                            <a asp-controller="Fornecedor" asp-action="Index" title="c">
-                                <span class="info-box-text">Fornecedor</span>
-                            </a>
+                <div class="row">
+                    <!-- ./col -->
+                    <div class="col-md-4 col-sm-6 col-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-success">
+                                <img src="~/icones/bills-to-receive.png" />
+                            </span>
+                            <div class="info-box-content">
+                                <a asp-controller="ContasReceber" asp-action="Index" title="Contas a Receber">
+                                    <span class="info-box-text">Contas a Receber</span>
+                                </a>
+                            </div>
+                            <!-- /.info-box-content -->
                         </div>
-                        <!-- /.info-box-content -->
+                        <!-- /.info-box -->
                     </div>
-                    <!-- /.info-box -->
-                </div>
-                <!-- ./col -->
 
-                <div class="col-md-4 col-sm-6 col-12">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-info">
-                            <img src="~/icones/product.png" />
-                        </span>
-                        <div class="info-box-content">
-                            <a asp-controller="Produto" asp-action="Index" title="Produto">
-                                <span class="info-box-text">Produto</span>
-                            </a>
+                    <div class="col-md-4 col-sm-6 col-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-success">
+                                <img src="~/icones/bills-to-pay.png" />
+                            </span>
+                            <div class="info-box-content">
+                                <a asp-controller="ContasPagar" asp-action="Index" title="Contas a Pagar">
+                                    <span class="info-box-text">Contas a Pagar</span>
+                                </a>
+                            </div>
+                            <!-- /.info-box-content -->
                         </div>
-                        <!-- /.info-box-content -->
+                        <!-- /.info-box -->
                     </div>
-                    <!-- /.info-box -->
+
+                    <!-- ./col -->
+                    <div class="col-md-4 col-sm-6 col-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-success">
+                                <img src="~/icones/cashier.png" />
+                            </span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Caixa</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
                 </div>
+
+                <div class="row">
+                    <!-- ./col -->
+                    <div class="col-md-4 col-sm-6 col-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-danger">
+                                <img src="~/icones/invoices.png" />
+                            </span>
+                            <div class="info-box-content">
+                                <span class="info-box-text">Relatório Anual do MEI</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                </div>
+
+                <!-- /.row -->
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    }
+    else
+    {
+        <div class="father">
+            <div class="child">
+                <h1>Sistema Gestão de Loja</h1>
+                <h4>Clique em <span style="color:red">Entrar</span> top do tela para se autenticar</h4>
             </div>
+        </div>
 
-            <div class="row">
-                <!-- ./col -->
-                <div class="col-md-4 col-sm-6 col-12">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-success">
-                            <img src="~/icones/bills-to-receive.png" />
-                        </span>
-                        <div class="info-box-content">
-                            <a asp-controller="ContasReceber" asp-action="Index" title="Contas a Receber">
-                                <span class="info-box-text">Contas a Receber</span>
-                            </a>
-                        </div>
-                        <!-- /.info-box-content -->
-                    </div>
-                    <!-- /.info-box -->
-                </div>
-
-                <div class="col-md-4 col-sm-6 col-12">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-success">
-                            <img src="~/icones/bills-to-pay.png" />
-                        </span>
-                        <div class="info-box-content">
-                            <a asp-controller="ContasPagar" asp-action="Index" title="Contas a Pagar">
-                                <span class="info-box-text">Contas a Pagar</span>
-                            </a>
-                        </div>
-                        <!-- /.info-box-content -->
-                    </div>
-                    <!-- /.info-box -->
-                </div>
-
-                <!-- ./col -->
-                <div class="col-md-4 col-sm-6 col-12">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-success">
-                            <img src="~/icones/cashier.png" />
-                        </span>
-                        <div class="info-box-content">
-                            <span class="info-box-text">Caixa</span>
-                        </div>
-                        <!-- /.info-box-content -->
-                    </div>
-                    <!-- /.info-box -->
-                </div>
-            </div>
-
-            <div class="row">
-                <!-- ./col -->
-                <div class="col-md-4 col-sm-6 col-12">
-                    <div class="info-box">
-                        <span class="info-box-icon bg-danger">
-                            <img src="~/icones/invoices.png" />
-                        </span>
-                        <div class="info-box-content">
-                            <span class="info-box-text">Relatório Anual do MEI</span>
-                        </div>
-                        <!-- /.info-box-content -->
-                    </div>
-                    <!-- /.info-box -->
-                </div>
-            </div>
-
-            <!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
+    }
 </div>
+
+ <style>
+    .father {
+        display: block;
+        height: 500px;
+        line-height: 500px;
+        width: 100%; /* Não necessário */
+        text-align: center; /* Não necessário */
+    }
+
+    .child {
+        display: inline-block;
+        vertical-align: middle;
+        line-height: 1.5;
+    }
+
+  
+ </style>

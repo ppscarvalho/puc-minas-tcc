@@ -1,7 +1,6 @@
 // Copyright (c) Duende Software. All rights reserved.
 // See LICENSE in the project root for license information.
 
-
 using Duende.IdentityServer;
 using Duende.IdentityServer.Events;
 using Duende.IdentityServer.Extensions;
@@ -265,9 +264,9 @@ namespace IdentityServerHost.Quickstart.UI
         public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
+
             if (ModelState.IsValid)
             {
-
                 var user = new ApplicationUser
                 {
                     UserName = model.Username,
@@ -341,15 +340,24 @@ namespace IdentityServerHost.Quickstart.UI
             }
 
             // If we got this far, something failed, redisplay form
+
+            List<string> roles = new()
+            {
+                "Admin",
+                "Client"
+            };
+            ViewBag.message = roles;
             return View(model);
         }
 
         private async Task<RegisterViewModel> BuildRegisterViewModelAsync(string returnUrl)
         {
             var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
-            List<string> roles = new List<string>();
-            roles.Add("Admin");
-            roles.Add("Client");
+            List<string> roles = new()
+            {
+                "Admin",
+                "Client"
+            };
             ViewBag.message = roles;
             if (context?.IdP != null && await _schemeProvider.GetSchemeAsync(context.IdP) != null)
             {

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Polly;
 using SGL.Integrations.AutoMapper;
 using SGL.Integrations.Htpp.Cliente;
@@ -77,6 +78,17 @@ builder.Services.AddAuthentication(options =>
         options.TokenValidationParameters.RoleClaimType = "role";
         options.Scope.Add("Sistema-Gestao-Loja");
         options.SaveTokens = true;
+
+        options.Events = new OpenIdConnectEvents
+        {
+            OnRemoteFailure = context =>
+            {
+                context.Response.Redirect("/");
+                context.HandleResponse();
+
+                return Task.FromResult(0);
+            }
+        };
     });
 
 

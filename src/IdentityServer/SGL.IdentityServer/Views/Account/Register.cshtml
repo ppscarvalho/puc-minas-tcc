@@ -40,7 +40,7 @@
                             <select asp-for="RoleName" class="form-control" asp-items="@(new SelectList(ViewBag.message))"></select>
                         </div>
                         <button class="btn btn-primary" name="button" value="Register">Registrar</button>
-                        <button class="btn btn-secondary" name="button" value="cancel">Cancelar</button>
+                        <a class="btn btn-secondary" href="@Url.Action("Login",new {Model.ReturnUrl })">Cancelar</a>
                         <a class="btn btn-info" href="@Url.Action("Login",new {Model.ReturnUrl })">Login</a>
                     </form>
                 </div>
