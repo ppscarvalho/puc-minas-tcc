@@ -15,9 +15,10 @@ namespace SGL.Integrations.Htpp.Fornecedor
             _apisOptions = options.Value;
         }
 
-        public async Task<IEnumerable<FornecedorViewModel>> ObterTodosFornecedores()
+        public async Task<IEnumerable<FornecedorViewModel>> ObterTodosFornecedores(string token)
         {
-            var result = await Get($"{_apisOptions.BaseUrlFornecedor}/api/fornecedor/obter-todos");
+            var headers = new Dictionary<string, string> { { "authorization", $"Bearer {token}" } };
+            var result = await Get($"{_apisOptions.BaseUrlFornecedor}/api/fornecedor/obter-todos", null, headers);
             return result.DeserializeObject<IEnumerable<FornecedorViewModel>>();
         }
 

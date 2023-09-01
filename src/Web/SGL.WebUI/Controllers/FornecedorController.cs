@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SGL.Integrations.Interfaces;
 
 namespace SGL.WebUI.Controllers
@@ -13,9 +15,11 @@ namespace SGL.WebUI.Controllers
         }
 
         // GET: CustomerController
+        [Authorize]
         public async Task<IActionResult> Index()
         {
-            var fornecedor = await _fornecedorService.ObterTodosFornecedores();
+            var token = await GetToken();
+            var fornecedor = await _fornecedorService.ObterTodosFornecedores(token);
             return View(fornecedor);
         }
 
@@ -24,6 +28,11 @@ namespace SGL.WebUI.Controllers
         {
             var fornecedor = await _fornecedorService.ObterFornecedorPorId(id);
             return View(fornecedor);
+        }
+
+        private async Task<string> GetToken()
+        {
+            return await HttpContext.GetTokenAsync("access_token");
         }
     }
 }

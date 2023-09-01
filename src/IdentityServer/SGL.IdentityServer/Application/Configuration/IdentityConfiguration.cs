@@ -5,8 +5,8 @@ namespace SGL.IdentityServer.Application.Configuration
 {
     public static class IdentityConfiguration
     {
-        public const string Admin = "Admin";
-        public const string Client = "Client";
+        public const string Admin = "Administrador";
+        public const string Client = "Operador";
 
         public static IEnumerable<IdentityResource> IdentityResources =>
             new List<IdentityResource>

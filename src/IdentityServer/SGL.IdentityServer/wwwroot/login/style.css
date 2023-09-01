@@ -56,6 +56,17 @@ main {
         justify-content: space-between;
     }
 
+.sair {
+    font-family: 'Poppins';
+    font-size: 4.0rem;
+    color: #fff;
+    text-align: center
+}
+
+    .sair a {
+        text-decoration: none;
+    }
+
 .input-field {
     display: flex;
     align-items: center;
@@ -79,7 +90,7 @@ main {
         height: 5.5rem;
         padding-left: 20px;
         font-size: 2.0rem;
-        font-family: "Poppins";
+        font-family: 'Poppins';
         border-radius: 0 8px 8px 0;
         transition: .3s;
     }

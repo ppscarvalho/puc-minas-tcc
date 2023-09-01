@@ -4,6 +4,7 @@
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
+    <!--Usuário autenticado-->
     @if (User.Identity.IsAuthenticated)
     {
         <!-- Content Header (Page header) -->
@@ -27,60 +28,61 @@
         <section class="content">
             <div class="container-fluid">
                 <!-- Small boxes (Stat box) -->
-                <div class="row">
-
-                    <!-- ./col -->
-                    <div class="col-md-4 col-sm-6 col-12">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-warning">
-                                <img src="~/icones/customer.png" />
-                            </span>
-                            <div class="info-box-content">
-                                <a asp-controller="Cliente" asp-action="Index" title="Cliente">
-                                    <span class="info-box-text">Cliente</span>
-                                </a>
+                @if (User.IsInRole("Administrador") || User.IsInRole("Operador"))
+                {
+                    <div class="row">
+                            <!-- ./col Cliente-->
+                            <div class="col-md-4 col-sm-6 col-12">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-warning">
+                                        <img src="~/icones/customer.png" />
+                                    </span>
+                                    <div class="info-box-content">
+                                        <a asp-controller="Cliente" asp-action="Index" title="Cliente">
+                                            <span class="info-box-text">Cliente</span>
+                                        </a>
+                                    </div>
+                                    <!-- /.info-box-content -->
+                                </div>
+                                <!-- /.info-box -->
                             </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </div>
-
-                    <!-- ./col -->
-                    <div class="col-md-4 col-sm-6 col-12">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-info">
-                                <img src="~/icones/supplier.png" />
-                            </span>
-                            <div class="info-box-content">
-                                <a asp-controller="Fornecedor" asp-action="Index" title="c">
-                                    <span class="info-box-text">Fornecedor</span>
-                                </a>
+                            <!-- ./col Fornecedor-->
+                            <div class="col-md-4 col-sm-6 col-12">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-info">
+                                        <img src="~/icones/supplier.png" />
+                                    </span>
+                                    <div class="info-box-content">
+                                        <a asp-controller="Fornecedor" asp-action="Index" title="c">
+                                            <span class="info-box-text">Fornecedor</span>
+                                        </a>
+                                    </div>
+                                    <!-- /.info-box-content -->
+                                </div>
+                                <!-- /.info-box -->
                             </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
-                    </div>
-                    <!-- ./col -->
-
-                    <div class="col-md-4 col-sm-6 col-12">
-                        <div class="info-box">
-                            <span class="info-box-icon bg-info">
-                                <img src="~/icones/product.png" />
-                            </span>
-                            <div class="info-box-content">
-                                <a asp-controller="Produto" asp-action="Index" title="Produto">
-                                    <span class="info-box-text">Produto</span>
-                                </a>
+                            <!-- ./col Produto-->
+                            <div class="col-md-4 col-sm-6 col-12">
+                                <div class="info-box">
+                                    <span class="info-box-icon bg-info">
+                                        <img src="~/icones/product.png" />
+                                    </span>
+                                    <div class="info-box-content">
+                                        <a asp-controller="Produto" asp-action="Index" title="Produto">
+                                            <span class="info-box-text">Produto</span>
+                                        </a>
+                                    </div>
+                                    <!-- /.info-box-content -->
+                                </div>
+                                <!-- /.info-box -->
                             </div>
-                            <!-- /.info-box-content -->
-                        </div>
-                        <!-- /.info-box -->
                     </div>
-                </div>
-
-                <div class="row">
-                    <!-- ./col -->
-                    <div class="col-md-4 col-sm-6 col-12">
+                }
+                @if (User.IsInRole("Administrador"))
+                {
+                    <div class="row">
+                        <!-- ./col Contas a Receber-->
+                        <div class="col-md-4 col-sm-6 col-12">
                         <div class="info-box">
                             <span class="info-box-icon bg-success">
                                 <img src="~/icones/bills-to-receive.png" />
@@ -95,7 +97,8 @@
                         <!-- /.info-box -->
                     </div>
 
-                    <div class="col-md-4 col-sm-6 col-12">
+                        <!-- ./col Contas a Pagar-->
+                        <div class="col-md-4 col-sm-6 col-12">
                         <div class="info-box">
                             <span class="info-box-icon bg-success">
                                 <img src="~/icones/bills-to-pay.png" />
@@ -110,8 +113,8 @@
                         <!-- /.info-box -->
                     </div>
 
-                    <!-- ./col -->
-                    <div class="col-md-4 col-sm-6 col-12">
+                        <!-- ./col Lançamento de Vendas-->
+                        <div class="col-md-4 col-sm-6 col-12">
                         <div class="info-box">
                             <span class="info-box-icon bg-success">
                                 <img src="~/icones/cashier.png" />
@@ -123,11 +126,11 @@
                         </div>
                         <!-- /.info-box -->
                     </div>
-                </div>
+                    </div>
 
-                <div class="row">
-                    <!-- ./col -->
-                    <div class="col-md-4 col-sm-6 col-12">
+                    <div class="row">
+                        <!-- ./col Relatório Anual do MEI-->
+                         <div class="col-md-4 col-sm-6 col-12">
                         <div class="info-box">
                             <span class="info-box-icon bg-danger">
                                 <img src="~/icones/invoices.png" />
@@ -139,14 +142,15 @@
                         </div>
                         <!-- /.info-box -->
                     </div>
-                </div>
+                    </div>
+                }
 
                 <!-- /.row -->
             </div><!-- /.container-fluid -->
         </section>
         <!-- /.content -->
     }
-    else
+    else 
     {
         <div class="father">
             <div class="child">
@@ -154,7 +158,6 @@
                 <h4>Clique em <span style="color:red">Entrar</span> top do tela para se autenticar</h4>
             </div>
         </div>
-
     }
 </div>
 

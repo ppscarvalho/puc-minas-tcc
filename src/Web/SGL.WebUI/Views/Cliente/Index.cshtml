@@ -10,7 +10,10 @@
                 <div class="card-header">
                     <h3 class="card-title">Lista de Clientes</h3>
                     <div style="text-align:right; margin-top: 10px">
-                        <a asp-controller="Cliente" asp-action="Create" class="btn btn-success"> Novo Cadastro</a>
+                        @if (User.IsInRole("Administrador"))
+                        {
+                            <a asp-controller="Cliente" asp-action="Create" class="btn btn-success"> Novo Cadastro</a>
+                        }
                     </div>
                 </div>
             </div>
@@ -65,9 +68,13 @@
                                             <a asp-controller="Cliente" asp-action="Edit" asp-route-id="@item.Id">
                                                 <i class="bi bi-pencil-square btn btn-primary" aria-hidden="true" title="Editar"></i>
                                             </a>
-                                            <a asp-controller="Cliente" asp-action="Details" asp-route-id="@item.Id">
-                                                <i class="bi bi-ticket-detailed btn btn-info" aria-hidden="true" title="Details"></i>
-                                            </a>
+
+                                            @if (User.IsInRole("Administrador"))
+                                            {
+                                                <a asp-controller="Cliente" asp-action="Details" asp-route-id="@item.Id">
+                                                    <i class="bi bi-ticket-detailed btn btn-info" aria-hidden="true" title="Details"></i>
+                                                </a>
+                                            }
                                         </td>
                                     </tr>
                                 }

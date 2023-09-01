@@ -1,7 +1,6 @@
 ﻿using IdentityModel;
 using Microsoft.AspNetCore.Identity;
 using SGL.IdentityServer.Application.Configuration;
-using SGL.IdentityServer.Infrastructure;
 using SGL.IdentityServer.Infrastructure.Context;
 using System.Security.Claims;
 
@@ -37,7 +36,7 @@ namespace SGL.IdentityServer.Infrastructure.Initializer
                 EmailConfirmed = true,
                 PhoneNumber = "+55 (91) 99251-1848",
                 FirstName = "Pedro",
-                LastName = "Admin"
+                LastName = "Administrador"
             };
 
             _user.CreateAsync(admin, "Ap&xStrong2@23").GetAwaiter().GetResult();
@@ -53,12 +52,12 @@ namespace SGL.IdentityServer.Infrastructure.Initializer
 
             ApplicationUser client = new()
             {
-                UserName = "pedro-client",
+                UserName = "joao-operador",
                 Email = "pedro_c_2022@outlook.com",
                 EmailConfirmed = true,
                 PhoneNumber = "+55 (91) 99251-1848",
-                FirstName = "Pedro",
-                LastName = "Client"
+                FirstName = "João",
+                LastName = "Operador"
             };
 
             _user.CreateAsync(client, "Ap&xStrong2@23").GetAwaiter().GetResult();

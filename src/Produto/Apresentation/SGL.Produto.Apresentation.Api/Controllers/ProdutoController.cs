@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SGL.MessageQueue.Models;
 using SGL.MessageQueue.Models.Fornecedor;
@@ -55,6 +56,7 @@ namespace SGL.Produto.Apresentation.Api.Controllers
         [Route("obter-todos")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(ResponseProdutoOut), StatusCodes.Status200OK)]
+        [Authorize]
         public async Task<IActionResult> ObterTodosProdutos()
         {
             _logger.LogInformation("Obter todos os Produtos");

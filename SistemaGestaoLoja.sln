@@ -117,6 +117,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5-Produto", "5-Produto", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-Autenticacao", "1-Autenticacao", "{846EEC60-D499-4189-B6CE-05D6E54AD844}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SM.App", "..\..\Arquitetura\SM.App\src\SM.App\SM.App.csproj", "{CA69237F-40CE-4703-A709-853965B20741}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SM.Integration", "..\..\Arquitetura\SM.App\src\SM.Integration\SM.Integration.csproj", "{5CBEAE7B-80AB-4047-82B9-656E0BAC3DBE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{94B76461-D0EC-4E45-86C9-B5F6324492ED}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -247,6 +256,14 @@ Global
 		{A73BB35A-F70A-4F33-89F9-FF7F9BC4D218}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A73BB35A-F70A-4F33-89F9-FF7F9BC4D218}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A73BB35A-F70A-4F33-89F9-FF7F9BC4D218}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA69237F-40CE-4703-A709-853965B20741}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA69237F-40CE-4703-A709-853965B20741}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA69237F-40CE-4703-A709-853965B20741}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA69237F-40CE-4703-A709-853965B20741}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CBEAE7B-80AB-4047-82B9-656E0BAC3DBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CBEAE7B-80AB-4047-82B9-656E0BAC3DBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CBEAE7B-80AB-4047-82B9-656E0BAC3DBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CBEAE7B-80AB-4047-82B9-656E0BAC3DBE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

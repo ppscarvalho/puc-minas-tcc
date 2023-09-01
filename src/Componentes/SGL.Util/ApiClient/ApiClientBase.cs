@@ -125,9 +125,9 @@ namespace SGL.Util.ApiClient
             }
             else
             {
-                var messageError = string.Empty;
                 var erros = new Dictionary<string, string[]>();
 
+                string? messageError;
                 try
                 {
                     var contentResponse = await ReadContent(response);

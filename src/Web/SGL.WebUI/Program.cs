@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Polly;
 using SGL.Integrations.AutoMapper;
@@ -91,6 +92,30 @@ builder.Services.AddAuthentication(options =>
         };
     });
 
+builder.Services.ConfigureApplicationCookie(o =>
+{
+    o.Events = new CookieAuthenticationEvents()
+    {
+        OnRedirectToLogin = (ctx) =>
+        {
+            if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200)
+            {
+                ctx.Response.StatusCode = 401;
+            }
+
+            return Task.CompletedTask;
+        },
+        OnRedirectToAccessDenied = (ctx) =>
+        {
+            if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200)
+            {
+                ctx.Response.StatusCode = 403;
+            }
+
+            return Task.CompletedTask;
+        }
+    };
+});
 
 // AutoMapping
 builder.Services.AddAutoMapperSetup();

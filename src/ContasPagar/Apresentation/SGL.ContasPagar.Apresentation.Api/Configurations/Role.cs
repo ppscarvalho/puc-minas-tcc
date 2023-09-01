@@ -1,4 +1,4 @@
-﻿namespace SGL.Cliente.Apresentation.Api.Configurations
+﻿namespace SGL.ContasPagar.Apresentation.Api.Configurations
 {
     public static class Role
     {

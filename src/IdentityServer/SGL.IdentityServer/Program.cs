@@ -9,8 +9,7 @@ using SGL.IdentityServer.Infrastructure.Initializer;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllersWithViews();
+
 
 builder.Services.AddDbContext<MySQLContext>(options =>
 options.UseMySQL(
@@ -23,10 +22,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<MySQLContext>()
     .AddDefaultTokenProviders();
 
-builder.Services.AddScoped<IDbInitializer, DbInitializer>();
-builder.Services.AddScoped<IProfileService, ProfileService>();
-
-builder.Services.AddIdentityServer(options =>
+var builderServices = builder.Services.AddIdentityServer(options =>
 {
     options.Events.RaiseErrorEvents = true;
     options.Events.RaiseInformationEvents = true;
@@ -37,8 +33,15 @@ builder.Services.AddIdentityServer(options =>
     .AddInMemoryIdentityResources(IdentityConfiguration.IdentityResources)
     .AddInMemoryApiScopes(IdentityConfiguration.ApiScopes)
     .AddInMemoryClients(IdentityConfiguration.Clients)
-    .AddAspNetIdentity<ApplicationUser>()
-    .AddDeveloperSigningCredential();
+    .AddAspNetIdentity<ApplicationUser>();
+
+builder.Services.AddScoped<IDbInitializer, DbInitializer>();
+builder.Services.AddScoped<IProfileService, ProfileService>();
+
+builderServices.AddDeveloperSigningCredential();
+
+// Add services to the container.
+builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
