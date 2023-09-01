@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Autenticação de Usuário</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="content">
+      <header>
+        <h1>Autenticação de Usuário</h1>
+      </header>
+
+      <main>
+        <form>
+          <div class="input-field">
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="digite seu e-mail"
+            />
+            <label for="email">
+              <img src="./images/avatar.svg" alt="Email" />
+            </label>
+          </div>
+
+          <div class="input-field">
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="digite seu senha"
+            />
+            <label for="password">
+              <img src="./images/lock.svg" alt="Senha" />
+            </label>
+          </div>
+
+          <div class="checkbox">
+            <input type="checkbox" name="checkbox" id="checkbox" checked />
+            <label for="checkbox">Lembrar Senha</label>
+          </div>
+
+          <button>Login</button>
+        </form>
+      </main>
+      <footer>
+        <span><a href="#">Esqueci minha senha</a> </span>
+        <a href="#">Cadastrar</a>
+      </footer>
+    </div>
+  </body>
+</html>

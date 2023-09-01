@@ -1,0 +1,11 @@
+@using System.Reflection
+
+@{
+    var version = typeof(Duende.IdentityServer.Hosting.IdentityServerMiddleware).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion.Split('+').First();
+}
+<header>
+    <h1>
+        Bem-Vindo ao Sistema de Autenticação
+        <small class="text-muted">(version @version)</small>
+    </h1>
+</header>

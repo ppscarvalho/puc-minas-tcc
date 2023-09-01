@@ -2,6 +2,7 @@
 using SGL.Integrations.Htpp.Cliente;
 using SGL.Integrations.Interfaces;
 using SGL.Integrations.ViewModels;
+using SGL.Resource.Util;
 
 namespace SGL.Integrations.Services
 {
@@ -15,20 +16,30 @@ namespace SGL.Integrations.Services
             _ClienteClient = ClienteClient;
         }
 
-        public async Task<ClienteViewModel> ObterClientePorId(Guid id)
+        public async Task<ClienteViewModel> ObterClientePorId(Guid id, string token)
         {
-            return await _ClienteClient.ObterClientePorId(id);
+            return await _ClienteClient.ObterClientePorId(id, token);
         }
 
-        public async Task<IEnumerable<ClienteViewModel>> ObterTodosClientes()
+        public async Task<IEnumerable<ClienteViewModel>> ObterTodosClientes(string token)
         {
-            return await _ClienteClient.ObterTodosClientes();
+            return await _ClienteClient.ObterTodosClientes(token);
         }
 
         public IEnumerable<EstadoViewModel> TodosEstados()
         {
             var states = new EstadoViewModel();
             return states.TodosEstados();
+        }
+
+        public async Task<DefaultResult> Adicionar(ClienteViewModel clienteViewModel, string token)
+        {
+            return await _ClienteClient.Adicionar(clienteViewModel, token);
+        }
+
+        public async Task<DefaultResult> Atualizar(ClienteViewModel clienteViewModel, string token)
+        {
+            return await _ClienteClient.Atualizar(clienteViewModel, token);
         }
     }
 }

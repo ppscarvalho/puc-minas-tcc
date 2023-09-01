@@ -19,6 +19,8 @@ namespace SGL.Cliente.Core.Application.Commands.Cliente
         public string? CEP { get; private set; }
         public string? Estado { get; private set; }
 
+        public AdicionarClienteCommand() { }
+
         public AdicionarClienteCommand(
           Guid id,
           string? nome,

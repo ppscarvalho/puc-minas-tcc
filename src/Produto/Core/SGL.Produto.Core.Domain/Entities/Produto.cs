@@ -36,6 +36,8 @@ namespace SGL.Produto.Core.Domain.Entities
             Estoque = estoque;
 
             Ativo();
+
+            IsValid();
         }
 
         public void Ativo() => Situacao = true;

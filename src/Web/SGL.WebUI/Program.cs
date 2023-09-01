@@ -1,6 +1,11 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Polly;
 using SGL.Integrations.AutoMapper;
 using SGL.Integrations.Htpp.Cliente;
+using SGL.Integrations.Htpp.ContasPagar;
+using SGL.Integrations.Htpp.ContasReceber;
 using SGL.Integrations.Htpp.Fornecedor;
 using SGL.Integrations.Htpp.Produto;
 using SGL.Integrations.Interfaces;
@@ -17,6 +22,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<HttpClienteDelegatingHandler>();
 builder.Services.AddScoped<HttpFornecedorDelegatingHandler>();
 builder.Services.AddScoped<HttpProdutoDelegatingHandler>();
+builder.Services.AddScoped<HttpContasReceberDelegatingHandler>();
+builder.Services.AddScoped<HttpContasPagarDelegatingHandler>();
 
 builder.Services.AddHttpClient<IClienteClient, ClienteClient>()
       .AddHttpMessageHandler<HttpClienteDelegatingHandler>()
@@ -33,6 +40,16 @@ builder.Services.AddHttpClient<IProdutoClient, ProdutoClient>()
       .AddPolicyHandler(PollyExtensions.GetRetryPolicy())
       .AddTransientHttpErrorPolicy(p => p.CircuitBreakerAsync(2, TimeSpan.FromSeconds(timeWait)));
 
+builder.Services.AddHttpClient<IContasReceberClient, ContasReceberClient>()
+      .AddHttpMessageHandler<HttpContasReceberDelegatingHandler>()
+      .AddPolicyHandler(PollyExtensions.GetRetryPolicy())
+      .AddTransientHttpErrorPolicy(p => p.CircuitBreakerAsync(2, TimeSpan.FromSeconds(timeWait)));
+
+builder.Services.AddHttpClient<IContasPagarClient, ContasPagarClient>()
+      .AddHttpMessageHandler<HttpContasPagarDelegatingHandler>()
+      .AddPolicyHandler(PollyExtensions.GetRetryPolicy())
+      .AddTransientHttpErrorPolicy(p => p.CircuitBreakerAsync(2, TimeSpan.FromSeconds(timeWait)));
+
 //Options
 builder.Services.Configure<APIsOptions>(builder.Configuration.GetSection(nameof(APIsOptions)));
 
@@ -40,6 +57,65 @@ builder.Services.Configure<APIsOptions>(builder.Configuration.GetSection(nameof(
 builder.Services.AddScoped<IClienteService, ClienteService>();
 builder.Services.AddScoped<IFornecedorService, FornecedorService>();
 builder.Services.AddScoped<IProdutoService, ProdutoService>();
+builder.Services.AddScoped<IContasReceberService, ContasReceberService>();
+builder.Services.AddScoped<IContasPagarService, ContasPagarService>();
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = "Cookies";
+    options.DefaultChallengeScheme = "oidc";
+})
+    .AddCookie("Cookies", c => c.ExpireTimeSpan = TimeSpan.FromMinutes(10))
+    .AddOpenIdConnect("oidc", options =>
+    {
+        options.Authority = builder.Configuration["APIsOptions:IdentityServer"];
+        options.GetClaimsFromUserInfoEndpoint = true;
+        options.ClientId = "Sistema Gestao Loja";
+        options.ClientSecret = "sistema_gestao_loja_secreto";
+        options.ResponseType = "code";
+        options.ClaimActions.MapJsonKey("role", "role", "role");
+        options.ClaimActions.MapJsonKey("sub", "sub", "sub");
+        options.TokenValidationParameters.NameClaimType = "name";
+        options.TokenValidationParameters.RoleClaimType = "role";
+        options.Scope.Add("Sistema-Gestao-Loja");
+        options.SaveTokens = true;
+
+        options.Events = new OpenIdConnectEvents
+        {
+            OnRemoteFailure = context =>
+            {
+                context.Response.Redirect("/");
+                context.HandleResponse();
+
+                return Task.FromResult(0);
+            }
+        };
+    });
+
+builder.Services.ConfigureApplicationCookie(o =>
+{
+    o.Events = new CookieAuthenticationEvents()
+    {
+        OnRedirectToLogin = (ctx) =>
+        {
+            if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200)
+            {
+                ctx.Response.StatusCode = 401;
+            }
+
+            return Task.CompletedTask;
+        },
+        OnRedirectToAccessDenied = (ctx) =>
+        {
+            if (ctx.Request.Path.StartsWithSegments("/api") && ctx.Response.StatusCode == 200)
+            {
+                ctx.Response.StatusCode = 403;
+            }
+
+            return Task.CompletedTask;
+        }
+    };
+});
 
 // AutoMapping
 builder.Services.AddAutoMapperSetup();
@@ -58,6 +134,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

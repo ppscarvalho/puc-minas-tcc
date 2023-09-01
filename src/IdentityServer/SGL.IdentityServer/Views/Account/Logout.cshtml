@@ -1,0 +1,14 @@
+﻿@model LogoutViewModel
+<header>
+    <h1>
+        Deseja sair do Sistema?
+    </h1>
+
+    <form asp-action="Logout">
+        <input type="hidden" name="logoutId" value="@Model.LogoutId" />
+        <div class="form-group">
+            <button>SIM</button>
+        </div>
+    </form>
+
+</header>

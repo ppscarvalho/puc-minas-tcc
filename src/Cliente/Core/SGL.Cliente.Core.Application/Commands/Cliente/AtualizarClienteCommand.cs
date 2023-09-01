@@ -10,7 +10,7 @@ namespace SGL.Cliente.Core.Application.Commands.Cliente
         public string? CPF { get; private set; }
         public string? Celular { get; private set; }
         public DateTime? DataNascimento { get; private set; }
-        public string? NomeEmail { get; private set; }
+        public string? EnderecoEmail { get; private set; }
         public string? Logradouro { get; private set; }
         public string? Numero { get; private set; }
         public string? Complemento { get; private set; }
@@ -19,13 +19,15 @@ namespace SGL.Cliente.Core.Application.Commands.Cliente
         public string? CEP { get; private set; }
         public string? Estado { get; private set; }
 
+        public AtualizarClienteCommand() { }
+
         public AtualizarClienteCommand(
           Guid id,
           string? nome,
           string? cpf,
           string? celular,
           DateTime? dataNascimento,
-          string? nomeEmail,
+          string? enderecoEmail,
           string? logradouro,
           string? numero,
           string? complemento,
@@ -39,7 +41,7 @@ namespace SGL.Cliente.Core.Application.Commands.Cliente
             CPF = cpf;
             Celular = celular;
             DataNascimento = dataNascimento;
-            NomeEmail = nomeEmail;
+            EnderecoEmail = enderecoEmail;
             Logradouro = logradouro;
             Numero = numero;
             Complemento = complemento;

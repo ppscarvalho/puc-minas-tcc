@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using SGL.Cliente.Core.Application.Commands.Cliente;
 using SGL.Cliente.Core.Application.Models;
-using SGL.Resource.Domain.ValueObjects;
 using SGL.MessageQueue.Models.Cliente;
+using SGL.Resource.Domain.ValueObjects;
 
 namespace SGL.Cliente.Core.Application.AutoMappings
 {
@@ -48,7 +48,7 @@ namespace SGL.Cliente.Core.Application.AutoMappings
                     b.CPF,
                     b.Celular,
                     b.DataNascimento,
-                    new Email(b.NomeEmail),
+                    new Email(b.EnderecoEmail),
                     new Endereco(b.Logradouro,
                     b.Numero,
                     b.Complemento,

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SGL.Integrations.Interfaces;
 
 namespace SGL.WebUI.Controllers
@@ -13,6 +14,7 @@ namespace SGL.WebUI.Controllers
         }
 
         // GET: CustomerController
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             var Produto = await _produtoService.ObterTodosProdutos();

@@ -5,7 +5,7 @@ namespace SGL.Integrations.Htpp.Fornecedor
 {
     public interface IFornecedorClient : IApiClientBase
     {
-        Task<IEnumerable<FornecedorViewModel>> ObterTodosFornecedores();
+        Task<IEnumerable<FornecedorViewModel>> ObterTodosFornecedores(string token);
         Task<FornecedorViewModel> ObterFornecedorPorId(Guid id);
     }
 }

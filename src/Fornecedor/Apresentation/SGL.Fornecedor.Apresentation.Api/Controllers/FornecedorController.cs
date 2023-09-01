@@ -1,5 +1,6 @@
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SGL.Fornecedor.Apresentation.Api.Controllers.BaseController;
 using SGL.Fornecedor.Core.Application.Commands.Fornecedor;
@@ -49,6 +50,7 @@ namespace SGL.Fornecedor.Apresentation.Api.Controllers
         [Route("obter-todos")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(FornecedorModel), StatusCodes.Status200OK)]
+        [Authorize]
         public async Task<IActionResult> ObterTodosFornecedores()
         {
             _logger.LogInformation("Obter todos os fornecedores");

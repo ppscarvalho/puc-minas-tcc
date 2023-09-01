@@ -20,9 +20,9 @@ namespace SGL.Integrations.Services
             return await _fornecedorClient.ObterFornecedorPorId(id);
         }
 
-        public async Task<IEnumerable<FornecedorViewModel>> ObterTodosFornecedores()
+        public async Task<IEnumerable<FornecedorViewModel>> ObterTodosFornecedores(string token)
         {
-            return await _fornecedorClient.ObterTodosFornecedores();
+            return await _fornecedorClient.ObterTodosFornecedores(token);
         }
 
         public IEnumerable<EstadoViewModel> TodosEstados()
