@@ -189,5 +189,10 @@ namespace SGL.Util.ApiClient
 
             await Task.CompletedTask;
         }
+
+        public Dictionary<string, string> SetHeaders(string token)
+        {
+            return new Dictionary<string, string> { { "authorization", $"Bearer {token}" } };
+        }
     }
 }

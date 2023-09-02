@@ -1,4 +1,4 @@
-﻿@model ClienteViewModel
+﻿@model FornecedorViewModel
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -8,13 +8,13 @@
             <!-- Horizontal Form -->
             <div class="card card-info">
                 <div class="card-header">
-                    <h3 class="card-title">Alteração de Cliente</h3>
+                    <h3 class="card-title">Cadastro de Formecedor</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
 
-                <form asp-controller="Cliente" asp-action="Edit" class="form-horizontal" method="post">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <form asp-controller="Fornecedor" asp-action="Create" class="form-horizontal" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="card-body">
                         <div class="form-group d-none">
                             <label asp-for="Id" class="control-label"></label>
@@ -22,52 +22,62 @@
                             <span asp-validation-for="Id" class="text-danger"></span>
                         </div>
 
-                        <!--Nome, CPF, Celular-->
+                        <!--RazaoSocial, NomeFantasia e CNPJ-->
                         <div class="row">
                             <div class="col-sm-4">
                                 <!-- text input -->
                                 <div class="form-group">
-                                    <label asp-for="Nome" class="control-label"></label>
-                                    <input asp-for="Nome" class="form-control" />
-                                    <span asp-validation-for="Nome" class="text-danger"></span>
+                                    <label asp-for="RazaoSocial" class="control-label"></label>
+                                    <input asp-for="RazaoSocial" class="form-control" />
+                                    <span asp-validation-for="RazaoSocial" class="text-danger"></span>
                                 </div>
                             </div>
-
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label asp-for="NomeFantasia" class="control-label"></label>
+                                    <input asp-for="NomeFantasia" class="form-control" />
+                                    <span asp-validation-for="NomeFantasia" class="text-danger"></span>
+                                </div>
+                            </div>
                             <div class="col-sm-4">
                                 <!-- text input -->
                                 <div class="form-group">
-                                    <label asp-for="CPF" class="control-label"></label>
-                                    <input asp-for="CPF" class="form-control" />
-                                    <span asp-validation-for="CPF" class="text-danger"></span>
+                                    <label asp-for="CNPJ" class="control-label"></label>
+                                    <input asp-for="CNPJ" class="form-control" />
+                                    <span asp-validation-for="CNPJ" class="text-danger"></span>
                                 </div>
                             </div>
+                        </div>
 
+                        <!--InscricaoEstadual, Celular e E-mail-->
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label asp-for="InscricaoEstadual" class="control-label"></label>
+                                    <input asp-for="InscricaoEstadual" class="form-control" />
+                                </div>
+                            </div>
                             <div class="col-sm-4">
                                 <!-- text input -->
                                 <div class="form-group">
                                     <label asp-for="Celular" class="control-label"></label>
                                     <input asp-for="Celular" class="form-control" />
-                                    <span asp-validation-for="Celular" class="text-danger"></span>
                                 </div>
                             </div>
-
-                        </div>
-
-                        <!--Email, CEP, Logradouro-->
-                        <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label asp-for="EnderecoEmail" class="control-label"></label>
                                     <input asp-for="EnderecoEmail" class="form-control" />
-                                    <span asp-validation-for="EnderecoEmail" class="text-danger"></span>
                                 </div>
                             </div>
+                        </div>
 
+                        <!--CEP, Logradouro, Bairro, Cidade e UF-->
+                        <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label asp-for="CEP" class="control-label"></label>
                                     <input asp-for="CEP" class="form-control" />
-                                    <span asp-validation-for="CEP" class="text-danger"></span>
                                 </div>
                             </div>
 
@@ -76,43 +86,41 @@
                                 <div class="form-group">
                                     <label asp-for="Logradouro" class="control-label"></label>
                                     <input asp-for="Logradouro" class="form-control" />
-                                    <span asp-validation-for="Logradouro" class="text-danger"></span>
                                 </div>
                             </div>
-                        </div>
 
-                        <!--Bairro, Cidade e Estado-->
-                        <div class="row">
                             <div class="col-sm-4">
                                 <div class="form-group">
                                     <label asp-for="Bairro" class="control-label"></label>
                                     <input asp-for="Bairro" class="form-control" />
-                                    <span asp-validation-for="Bairro" class="text-danger"></span>
                                 </div>
                             </div>
-                            <div class="col-sm-4">
+                        </div>
+
+
+                        <!--Cidade e UF-->
+                        <div class="row">
+                            <div class="col-sm-6">
                                 <!-- text input -->
                                 <div class="form-group">
                                     <label asp-for="Cidade" class="control-label"></label>
                                     <input asp-for="Cidade" class="form-control" />
-                                    <span asp-validation-for="Cidade" class="text-danger"></span>
                                 </div>
                             </div>
 
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 <div class="form-group">
                                     <label asp-for="Estado" class="control-label"></label>
                                     <select asp-for="Estado" class="form-control" asp-items="@(new SelectList(Model.Estados, "UF", "Descricao"))">
                                         <option></option>
                                     </select>
-                                    <span asp-validation-for="Estado" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- /.card-body -->
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-info">Atualizar</button>
+                        <button type="submit" class="btn btn-info">Salvar</button>
                         <a asp-action="Index" class="btn btn-default float-right">Voltar</a>
                     </div>
                 </form>
@@ -123,15 +131,14 @@
     <!-- /.content -->
 </div>
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 
     <script>
         $(document).ready(function () {
-            $('#CPF').setMask({ mask: '999.999.999-99' });
-            $('#CEP').setMask({ mask: '99999-999' });
-            $('#Celular').setMask({ mask: '(99) 99999-9999' });
+            $('#CNPJ').setMask({ mask: '99.999.999/9999-99'});
+            $('#CEP').setMask({ mask: '99999-999'});
+            $('#Celular').setMask({ mask: '(99) 99999-9999'});
+            $('#InscricaoEstadual').setMask({ mask: '99-999999-9' });
         });
     </script>
 }

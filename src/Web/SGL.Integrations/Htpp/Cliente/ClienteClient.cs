@@ -18,28 +18,28 @@ namespace SGL.Integrations.Htpp.Cliente
 
         public async Task<IEnumerable<ClienteViewModel>> ObterTodosClientes(string token)
         {
-            var headers = new Dictionary<string, string> { { "authorization", $"Bearer {token}" } };
+            var headers = SetHeaders(token);
             var result = await Get($"{_apisOptions.BaseUrlCliente}/api/cliente/obter-todos", null, headers);
             return result.DeserializeObject<IEnumerable<ClienteViewModel>>();
         }
 
         public async Task<ClienteViewModel> ObterClientePorId(Guid id, string token)
         {
-            var headers = new Dictionary<string, string> { { "authorization", $"Bearer {token}" } };
+            var headers = SetHeaders(token);
             var result = await Get($"{_apisOptions.BaseUrlCliente}/api/cliente/obter-por-id?id={id}", null, headers);
             return result.DeserializeObject<ClienteViewModel>();
         }
 
         public async Task<DefaultResult> Adicionar(ClienteViewModel clienteViewModel, string token)
         {
-            var headers = new Dictionary<string, string> { { "authorization", $"Bearer {token}" } };
+            var headers = SetHeaders(token);
             var result = await Post($"{_apisOptions.BaseUrlCliente}/api/cliente/adicionar", clienteViewModel, headers);
             return result.DeserializeObject<DefaultResult>();
         }
 
         public async Task<DefaultResult> Atualizar(ClienteViewModel clienteViewModel, string token)
         {
-            var headers = new Dictionary<string, string> { { "authorization", $"Bearer {token}" } };
+            var headers = SetHeaders(token);
             var result = await Post($"{_apisOptions.BaseUrlCliente}/api/cliente/atualizar", clienteViewModel, headers);
             return result.DeserializeObject<DefaultResult>();
         }

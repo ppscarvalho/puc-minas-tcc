@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SGL.Integrations.Interfaces;
+using SGL.Integrations.ViewModels;
 
 namespace SGL.WebUI.Controllers
 {
-    public class FornecedorController : Controller
+    public class FornecedorController : BaseController
     {
         private readonly IFornecedorService _fornecedorService;
 
@@ -14,7 +14,7 @@ namespace SGL.WebUI.Controllers
             _fornecedorService = fornecedorService;
         }
 
-        // GET: CustomerController
+        // GET: FornecedorController
         [Authorize]
         public async Task<IActionResult> Index()
         {
@@ -23,16 +23,71 @@ namespace SGL.WebUI.Controllers
             return View(fornecedor);
         }
 
-        // GET: CustomerController/Details/5
-        public async Task<IActionResult> Details(Guid id)
+        // GET: FornecedorController/Create
+        [Authorize]
+        public ActionResult Create()
         {
-            var fornecedor = await _fornecedorService.ObterFornecedorPorId(id);
+            var fornecedor = new FornecedorViewModel
+            {
+                Estados = _fornecedorService.TodosEstados()
+            };
             return View(fornecedor);
         }
 
-        private async Task<string> GetToken()
+        // POST: FornecedorController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<IActionResult> Create(FornecedorViewModel fornecedorViewModel)
         {
-            return await HttpContext.GetTokenAsync("access_token");
+            try
+            {
+                if (!ModelState.IsValid)
+                    return View();
+
+                var token = await GetToken();
+                var result = await _fornecedorService.Adicionar(fornecedorViewModel, token);
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        // GET: FornecedorController/Edit/5
+        [Authorize]
+        public async Task<IActionResult> Edit(Guid id)
+        {
+            var token = await GetToken();
+            var fornecedor = await _fornecedorService.ObterFornecedorPorId(id, token);
+            fornecedor.Estados = _fornecedorService.TodosEstados();
+            return View(fornecedor);
+        }
+
+        // POST: FornecedorController/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize]
+        public async Task<IActionResult> Edit(FornecedorViewModel fornecedorViewModel)
+        {
+            if (!ModelState.IsValid)
+                return View();
+
+            var token = await GetToken();
+            var result = await _fornecedorService.Atualizar(fornecedorViewModel, token);
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: FornecedorController/Details/5
+        [Authorize]
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var token = await GetToken();
+            var fornecedor = await _fornecedorService.ObterFornecedorPorId(id, token);
+            return View(fornecedor);
         }
     }
 }
