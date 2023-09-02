@@ -2,6 +2,7 @@ using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SGL.Fornecedor.Apresentation.Api.Configurations;
 using SGL.Fornecedor.Apresentation.Api.Controllers.BaseController;
 using SGL.Fornecedor.Core.Application.Commands.Fornecedor;
 using SGL.Fornecedor.Core.Application.Models;
@@ -38,6 +39,7 @@ namespace SGL.Fornecedor.Apresentation.Api.Controllers
         [Route("obter-por-id")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(FornecedorModel), StatusCodes.Status200OK)]
+        [Authorize]
         public async Task<IActionResult> ObterFornecedorPorId([FromQuery] Guid id)
         {
             _logger.LogInformation("Obter todos os Fornecedors");
@@ -63,6 +65,7 @@ namespace SGL.Fornecedor.Apresentation.Api.Controllers
         [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = Role.Admin)]
         public async Task<ActionResult<DefaultResult>> AdicionarFornecedor([FromBody] FornecedorModel fornecedorModel)
         {
             var cmd = _mapper.Map<AdicionarFornecedorCommand>(fornecedorModel);
@@ -79,6 +82,7 @@ namespace SGL.Fornecedor.Apresentation.Api.Controllers
         [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = Role.Admin)]
         public async Task<ActionResult<DefaultResult>> AtualizarFornecedor([FromBody] FornecedorModel fornecedorModel)
         {
             var cmd = _mapper.Map<AtualizarFornecedorCommand>(fornecedorModel);
@@ -88,6 +92,17 @@ namespace SGL.Fornecedor.Apresentation.Api.Controllers
                 return Ok(result);
             else
                 return BadRequest(GetMessageError());
+        }
+
+        [HttpGet]
+        [Route("desativar-por-id")]
+        [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<DefaultResult>> DesativarFornecedor([FromQuery] Guid id)
+        {
+            await Task.CompletedTask;
+            return Ok(id);
         }
     }
 }

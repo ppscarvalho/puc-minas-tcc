@@ -2,6 +2,7 @@
 using SGL.Integrations.Htpp.Fornecedor;
 using SGL.Integrations.Interfaces;
 using SGL.Integrations.ViewModels;
+using SGL.Resource.Util;
 
 namespace SGL.Integrations.Services
 {
@@ -15,9 +16,9 @@ namespace SGL.Integrations.Services
             _fornecedorClient = fornecedorClient;
         }
 
-        public async Task<FornecedorViewModel> ObterFornecedorPorId(Guid id)
+        public async Task<FornecedorViewModel> ObterFornecedorPorId(Guid id, string token)
         {
-            return await _fornecedorClient.ObterFornecedorPorId(id);
+            return await _fornecedorClient.ObterFornecedorPorId(id, token);
         }
 
         public async Task<IEnumerable<FornecedorViewModel>> ObterTodosFornecedores(string token)
@@ -29,6 +30,16 @@ namespace SGL.Integrations.Services
         {
             var states = new EstadoViewModel();
             return states.TodosEstados();
+        }
+
+        public async Task<DefaultResult> Adicionar(FornecedorViewModel fornecedorViewModel, string token)
+        {
+            return await _fornecedorClient.Adicionar(fornecedorViewModel, token);
+        }
+
+        public async Task<DefaultResult> Atualizar(FornecedorViewModel fornecedorViewModel, string token)
+        {
+            return await _fornecedorClient.Atualizar(fornecedorViewModel, token);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model ClienteViewModel
+﻿@model FornecedorViewModel
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -9,7 +9,7 @@
             <!-- Horizontal Form -->
             <div class="card card-info">
                 <div class="card-header">
-                    <h3 class="card-title">Detalhes de Cliente</h3>
+                    <h3 class="card-title">Detalhes de Fornecedor</h3>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -22,15 +22,34 @@
 
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label asp-for="Nome" class="control-label"></label>
-                                <span class="form-control">@Html.DisplayFor(model => model.Nome)</span>
+                                <label asp-for="RazaoSocial" class="control-label"></label>
+                                <span class="form-control">@Html.DisplayFor(model => model.RazaoSocial)</span>
                             </div>
                         </div>
 
                         <div class="col-sm-3">
                             <div class="form-group">
-                                <label asp-for="CPF" class="control-label"></label>
-                                <span class="form-control">@Html.DisplayFor(model => model.CPF)</span>
+                                <label asp-for="NomeFantasia" class="control-label"></label>
+                                <span class="form-control">@Html.DisplayFor(model => model.NomeFantasia)</span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="CNPJ" class="control-label"></label>
+                                <span class="form-control">@Html.DisplayFor(model => model.CNPJ)</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="InscricaoEstadual" class="control-label"></label>
+                                <span class="form-control">
+                                    @Html.DisplayFor(model => model.InscricaoEstadual)
+                                </span>
                             </div>
                         </div>
 
@@ -43,9 +62,6 @@
                             </div>
                         </div>
 
-                    </div>
-
-                    <div class="row">
                         <div class="col-sm-3">
                             <div class="form-group">
                                 <label asp-for="EnderecoEmail" class="control-label"></label>
@@ -64,6 +80,9 @@
                             </div>
                         </div>
 
+                    </div>
+
+                    <div class="row">
                         <div class="col-sm-3">
                             <label asp-for="Bairro" class="control-label"></label>
                             <div class="form-group">
@@ -81,9 +100,8 @@
                                 </span>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6">
+
+                        <div class="col-sm-3">
                             <label asp-for="CEP" class="control-label"></label>
                             <div class="form-group">
                                 <span class="form-control">
@@ -91,7 +109,8 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+
+                        <div class="col-sm-3">
                             <label asp-for="Estado" class="control-label"></label>
                             <div class="form-group">
                                 <span class="form-control">
@@ -105,7 +124,7 @@
                 <div class="card-footer">
                     @if (User.IsInRole("Administrador"))
                     {
-                        <a asp-controller="Cliente" asp-action="Edit" asp-route-id="@Model.Id">
+                        <a asp-controller="Fornecedor" asp-action="Edit" asp-route-id="@Model.Id">
                             <i class="bi bi-pencil-square btn btn-primary" aria-hidden="true" title="Editar"></i>
                         </a>
                     }
