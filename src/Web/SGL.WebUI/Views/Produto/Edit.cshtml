@@ -1,0 +1,139 @@
+﻿@model ProdutoViewModel
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Horizontal Form -->
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">Alteração de Produto</h3>
+                </div>
+                <!-- /.card-header -->
+                <!-- form start -->
+                <form asp-controller="Produto" asp-action="Edit" class="form-horizontal" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="card-body">
+                        <div class="form-group row d-nonex">
+                            <label asp-for="Id" class="col-sm-2 col-form-label">Id</label>
+                            <div class="col-sm-10">
+                                <input asp-for="Id" class="form-control" placeholder="Id">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label asp-for="FornecedorId" class="control-label"></label>
+                                    <select asp-for="FornecedorId" class="form-control" asp-items="@(new SelectList(Model.FornecedorViewModels, "Id", "NomeFantasia"))">
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                <label asp-for="CategoriaId" class="control-label"></label>
+                                    <select asp-for="CategoriaId" class="form-control" asp-items="@(new SelectList(Model.CategoriaViewModels, "Id", "Descricao"))">
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label asp-for="Descricao" class="control-label"></label>
+                                    <input asp-for="Descricao" class="form-control" placeholder="Descrição">
+                                    <span asp-validation-for="Descricao" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label asp-for="PrecoCompra" class="control-label"></label>
+                                    <input asp-for="PrecoCompra" class="form-control" placeholder="Preço de Compra">
+                                    <span asp-validation-for="PrecoCompra" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label asp-for="MargemLucro" class="control-label"></label>
+                                    <input asp-for="MargemLucro" class="form-control" placeholder="Margem de Lucro">
+                                    <span asp-validation-for="MargemLucro" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label asp-for="PrecoVenda" class="control-label"></label>
+                                    <input asp-for="PrecoVenda" class="form-control" placeholder="Preço de Venda">
+                                    <span asp-validation-for="PrecoVenda" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label asp-for="Estoque" class="control-label"></label>
+                                    <input asp-for="Estoque" class="form-control" placeholder="Estoque">
+                                    <span asp-validation-for="Estoque" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <label asp-for="LucroObtido" class="control-label"></label>
+                                    <input asp-for="LucroObtido" class="form-control" placeholder="Lucro Obtiddo" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-info">Atualizar</button>
+                        <a asp-action="Index" class="btn btn-default float-right">Voltar</a>
+                    </div>
+                    <!-- /.card-footer -->
+                </form>
+            </div>
+            <!-- /.card -->
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        $(document).ready(function () {
+            var precoCompra = 0;
+            var precoVenda = 0;
+            var percentual = 0;
+            var valorMargemLucro = 0;
+            var totalPrecoVenda = 0;
+
+            $('#PrecoCompra').setMask({ mask: '99.999.999.999.999', type: 'reverse' });
+            $('#PrecoVenda').setMask({ mask: '99.999.999.999.999', type: 'reverse' });
+            $('#MargemLucro').setMask({ mask: '99.999.999.999.999', type: 'reverse' });
+            $('#LucroObtido').setMask({ mask: '99.999.999.999.999', type: 'reverse' });
+
+            $("#MargemLucro").blur(function () {
+                if (parseFloat($("#MargemLucro").val()) > 0) {
+                    precoCompra = parseFloat($("#PrecoCompra").val());
+                    percentual = parseFloat($("#MargemLucro").val());
+                    valorMargemLucro = (precoCompra * percentual) / 100;
+                    totalPrecoVenda = (precoCompra + valorMargemLucro).toFixed(2);
+
+                    $("#PrecoVenda").val(totalPrecoVenda);
+                    $("#LucroObtido").val((totalPrecoVenda - precoCompra).toFixed(2));
+                }
+            });
+        });
+    </script>
+}

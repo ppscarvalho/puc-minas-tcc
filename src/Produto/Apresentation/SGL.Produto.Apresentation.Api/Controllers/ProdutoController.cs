@@ -6,6 +6,7 @@ using SGL.MessageQueue.Models;
 using SGL.MessageQueue.Models.Fornecedor;
 using SGL.MessageQueue.Models.Produto;
 using SGL.MessageQueue.Operators;
+using SGL.Produto.Apresentation.Api.Configurations;
 using SGL.Produto.Apresentation.Api.Controllers.BaseController;
 using SGL.Produto.Core.Application.Commands.Produto;
 using SGL.Produto.Core.Application.Models;
@@ -44,6 +45,7 @@ namespace SGL.Produto.Apresentation.Api.Controllers
         [Route("obter-por-id")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(ProdutoModel), StatusCodes.Status200OK)]
+        [Authorize]
         public async Task<IActionResult> ObterProdutoPorId([FromQuery] Guid id)
         {
             _logger.LogInformation("Obter todos os produtos");
@@ -70,6 +72,7 @@ namespace SGL.Produto.Apresentation.Api.Controllers
         [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = Role.Admin)]
         public async Task<ActionResult<DefaultResult>> AdicionarProduto([FromBody] ProdutoModel produtoModel)
         {
             var cmd = _mapper.Map<AdicionarProdutoCommand>(produtoModel);
@@ -86,6 +89,7 @@ namespace SGL.Produto.Apresentation.Api.Controllers
         [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = Role.Admin)]
         public async Task<ActionResult<DefaultResult>> AtualizarProduto([FromBody] ProdutoModel ProdutoModel)
         {
             var cmd = _mapper.Map<AtualizarProdutoCommand>(ProdutoModel);

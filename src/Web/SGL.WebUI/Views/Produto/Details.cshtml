@@ -1,0 +1,97 @@
+﻿@model ProdutoViewModel
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <!-- Horizontal Form -->
+            <div class="card card-info">
+                <div class="card-header">
+                    <h3 class="card-title">Detalhes de Produto</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="Id" class="control-label">Id</label>
+                                <span class="form-control">@Html.DisplayFor(model => model.Id)</span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="FornecedorId" class="control-label"></label>
+                                <span class="form-control">@Html.DisplayFor(model => model.ResponseFornecedorOut.RazaoSocial)</span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="CategoriaId" class="control-label"></label>
+                                <span class="form-control">@Html.DisplayFor(model => model.ResponseCategoriaOut.Descricao)</span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="Descricao" class="control-label"></label>
+                                <span class="form-control">@Html.DisplayFor(model => model.Descricao)</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="PrecoCompra" class="control-label"></label>
+                                <span class="form-control">
+                                    @Html.DisplayFor(model => model.PrecoCompra)
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="MargemLucro" class="control-label"></label>
+                                <span class="form-control">
+                                    @Html.DisplayFor(model => model.MargemLucro)
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="PrecoVenda" class="control-label"></label>
+                                <span class="form-control">
+                                    @Html.DisplayFor(model => model.PrecoVenda)
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label asp-for="Estoque" class="control-label"></label>
+                                <span class="form-control">
+                                    @Html.DisplayFor(model => model.Estoque)
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- /.card-body -->
+                <div class="card-footer">
+                    @if (User.IsInRole("Administrador"))
+                    {
+                        <a asp-controller="Produto" asp-action="Edit" asp-route-id="@Model.Id">
+                            <i class="bi bi-pencil-square btn btn-primary" aria-hidden="true" title="Editar"></i>
+                        </a>
+                    }
+                    <a asp-action="Index" class="btn btn-default float-right">Voltar</a>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+</div>

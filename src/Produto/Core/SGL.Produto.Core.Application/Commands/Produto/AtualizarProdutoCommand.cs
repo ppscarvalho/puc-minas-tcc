@@ -15,6 +15,8 @@ namespace SGL.Produto.Core.Application.Commands.Produto
         public int Estoque { get; private set; }
         public bool Situacao { get; private set; }
 
+        public AtualizarProdutoCommand() { }
+
         public AtualizarProdutoCommand(
             Guid id,
             Guid fornecedorId,

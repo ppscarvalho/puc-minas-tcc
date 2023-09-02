@@ -49,14 +49,14 @@ namespace SGL.Produto.Core.Domain.Entities
             Estoque += estoque;
         }
 
-        public void DebitStock(int quantidade)
+        public void DebitarStock(int quantidade)
         {
             if (quantidade < 0) quantidade *= -1;
-            if (!TemEstoque(quantidade)) throw new DomainException("Estoque insuficiente");
+            if (!PossuiEstoque(quantidade)) throw new DomainException("Estoque insuficiente");
             Estoque -= quantidade;
         }
 
-        public bool TemEstoque(int quantidade)
+        public bool PossuiEstoque(int quantidade)
         {
             return Estoque >= quantidade;
         }
