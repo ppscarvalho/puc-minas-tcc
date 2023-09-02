@@ -19,9 +19,9 @@ namespace SGL.Produto.Core.Application.AutoMappings
             //Atualizar Produto Command
             CreateMap<ProdutoModel, AtualizarProdutoCommand>().ReverseMap();
             CreateMap<AtualizarProdutoCommand, Domain.Entities.Produto>().ReverseMap();
+            CreateMap<Domain.Entities.Produto, AtualizarProdutoCommand>().ReverseMap();
 
-            //CreateMap<Domain.Entities.Produto, ProdutoModel>().ReverseMap();
-            //CreateMap<Domain.Entities.Produto, ResponseProdutoOut>().ReverseMap();
+            CreateMap<Domain.Entities.Produto, ProdutoModel>().ReverseMap();
 
             CreateMap<Categoria, ResponseCategoriaOut>().ReverseMap();
 

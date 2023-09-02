@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using SGL.Integrations.ViewModels;
+using SGL.Resource.Util;
 using SGL.Util.ApiClient;
 using SGL.Util.Extensions;
 using SGL.Util.Options;
@@ -15,18 +16,34 @@ namespace SGL.Integrations.Htpp.Produto
             _apisOptions = options.Value;
         }
 
-        public async Task<IEnumerable<ProdutoViewModel>> ObterTodosProdutos()
+        public async Task<IEnumerable<ProdutoViewModel>> ObterTodosProdutos(string token)
         {
-            var result = await Get($"{_apisOptions.BaseUrlProduto}/api/produto/obter-todos");
-            var produto = result.DeserializeObject<IEnumerable<ProdutoViewModel>>();
-            return produto;
+            var headers = SetHeaders(token);
+            var result = await Get($"{_apisOptions.BaseUrlProduto}/api/produto/obter-todos", null, headers);
+            return result.DeserializeObject<IEnumerable<ProdutoViewModel>>();
         }
 
-        public async Task<ProdutoViewModel> ObterProdutoPorId(Guid id)
+        public async Task<ProdutoViewModel> ObterProdutoPorId(Guid id, string token)
         {
-            var headers = new Dictionary<string, string> { { "authorization", $"Bearer {Guid.NewGuid}" } };
-            var result = await Get($"{_apisOptions.BaseUrlProduto}/api/produto/obter-por-id", new { Id = id }, headers);
+            var headers = SetHeaders(token);
+            var result = await Get($"{_apisOptions.BaseUrlProduto}/api/produto/obter-por-id?id={id}", null, headers);
             return result.DeserializeObject<ProdutoViewModel>();
+        }
+
+
+
+        public async Task<DefaultResult> Adicionar(ProdutoViewModel produtoViewModel, string token)
+        {
+            var headers = SetHeaders(token);
+            var result = await Post($"{_apisOptions.BaseUrlProduto}/api/produto/adicionar", produtoViewModel, headers);
+            return result.DeserializeObject<DefaultResult>();
+        }
+
+        public async Task<DefaultResult> Atualizar(ProdutoViewModel produtoViewModel, string token)
+        {
+            var headers = SetHeaders(token);
+            var result = await Post($"{_apisOptions.BaseUrlProduto}/api/produto/atualizar", produtoViewModel, headers);
+            return result.DeserializeObject<DefaultResult>();
         }
     }
 }

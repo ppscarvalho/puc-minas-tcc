@@ -2,6 +2,7 @@
 {
     public class ProdutoModel
     {
+        public Guid Id { get; private set; }
         public Guid FornecedorId { get; private set; }
         public int CategoriaId { get; private set; }
         public string? Descricao { get; private set; }
@@ -12,6 +13,7 @@
         public bool Situacao { get; private set; }
 
         public ProdutoModel(
+            Guid id,
             Guid fornecedorId,
             int categoriaId,
             string? descricao,
@@ -21,6 +23,7 @@
             int estoque,
             bool situacao)
         {
+            Id = id;
             FornecedorId = fornecedorId;
             CategoriaId = categoriaId;
             Descricao = descricao;
