@@ -114,8 +114,8 @@ namespace SGL.WebUI.Controllers
         public async Task<IActionResult> Details(Guid id)
         {
             var token = await GetToken();
-            var Produto = await _produtoService.ObterProdutoPorId(id, token);
-            return View(Produto);
+            var produto = await _produtoService.ObterProdutoPorId(id, token);
+            return View(produto);
         }
     }
 }

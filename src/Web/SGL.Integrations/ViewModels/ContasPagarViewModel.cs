@@ -23,20 +23,22 @@ namespace SGL.Integrations.ViewModels
         [Required(ErrorMessage = "Valor é obrigatório.")]
         public decimal Valor { get; set; }
 
-        public string? Status { get; set; }
+        public string? Situacao { get; set; }
 
         public ICollection<FornecedorViewModel>? FornecedorViewModels { get; set; }
         public FornecedorViewModel? FornecedorViewModel { get; set; }
         public ResponseFornecedorOut? ResponseFornecedorOut { get; set; }
 
-        public string Situacao
+        public IEnumerable<StatusViewModel?>? StatusVieModels { get; set; }
+
+        public string ObterSituacao
         {
-            get { return ObterSituacao(); }
+            get { return ObterStatus(); }
         }
 
-        public string ObterSituacao()
+        public string ObterStatus()
         {
-            switch (Status)
+            switch (Situacao)
             {
                 case "Pago":
                     return "Pago";

@@ -50,7 +50,7 @@ namespace SGL.Produto.Apresentation.Api.Controllers
         {
             _logger.LogInformation("Obter todos os produtos");
             var result = await _mediatorQuery.Send(new ObterProdutoPorIdQuery(id));
-
+            result.ResponseFornecedorOut = await ObterFornecedorPorFornecedorId(result.FornecedorId);
             return Ok(result);
         }
 
@@ -63,7 +63,7 @@ namespace SGL.Produto.Apresentation.Api.Controllers
         {
             _logger.LogInformation("Obter todos os Produtos");
             var result = await _mediatorQuery.Send(new ObterTodosProdutosQuery());
-            await ObterFornecedorPorIdProduto(result);
+            await ObterFornecedorPorProduto(result);
             return Ok(result);
         }
 
@@ -101,7 +101,7 @@ namespace SGL.Produto.Apresentation.Api.Controllers
                 return BadRequest(GetMessageError());
         }
 
-        private async Task ObterFornecedorPorIdProduto(IEnumerable<ResponseProdutoOut> result)
+        private async Task ObterFornecedorPorProduto(IEnumerable<ResponseProdutoOut> result)
         {
             var mapIn = new RequestIn
             {
@@ -122,6 +122,19 @@ namespace SGL.Produto.Apresentation.Api.Controllers
                     CNPJ = fornecedor?.CNPJ
                 };
             }
+        }
+
+        private async Task<ResponseFornecedorOut> ObterFornecedorPorFornecedorId(Guid fornecedorId)
+        {
+            var mapIn = new RequestIn
+            {
+                Host = "localhost",
+                Result = fornecedorId.ToString(),
+                Queue = "ObterFornecedorPorId",
+            };
+
+            var resp = await _publish.DoRPC<RequestIn, ResponseFornecedorOut>(mapIn);
+            return _mapper.Map<ResponseFornecedorOut>(resp);
         }
     }
 }
