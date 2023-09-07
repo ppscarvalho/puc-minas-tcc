@@ -101,6 +101,17 @@ namespace SGL.ContasPagar.Apresentation.Api.Controllers
                 return BadRequest(GetMessageError());
         }
 
+        [HttpGet]
+        [Route("baixar-contas-a-pagar-por-id")]
+        [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<DefaultResult>> BaixarContasPagar([FromQuery] Guid id)
+        {
+            await Task.CompletedTask;
+            return Ok(id);
+        }
+
         private async Task ObterFornecedorPorContaPagar(IEnumerable<ResponseContasPagarOut> result)
         {
             var mapIn = new RequestIn
