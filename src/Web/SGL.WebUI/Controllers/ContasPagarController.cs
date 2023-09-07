@@ -8,10 +8,11 @@ namespace SGL.WebUI.Controllers
     public class ContasPagarController : BaseController
     {
         private readonly IContasPagarService _contasPagarService;
-
-        public ContasPagarController(IContasPagarService contasPagarService)
+        private readonly IFornecedorService _fornecedorService;
+        public ContasPagarController(IContasPagarService contasPagarService, IFornecedorService fornecedorService)
         {
             _contasPagarService = contasPagarService;
+            _fornecedorService = fornecedorService;
         }
 
         // GET: ContasPagarController
@@ -25,9 +26,16 @@ namespace SGL.WebUI.Controllers
 
         // GET: ContasPagarController/Create
         [Authorize]
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            var contasPagar = new ContasPagarViewModel();
+            var token = await GetToken();
+            var fornecedor = await _fornecedorService.ObterTodosFornecedores(token);
+            var contasPagar = new ContasPagarViewModel
+            {
+                FornecedorViewModels = fornecedor.ToList(),
+                StatusVieModels = _contasPagarService.TodosStatus()
+            };
+
             return View(contasPagar);
         }
 
@@ -41,6 +49,8 @@ namespace SGL.WebUI.Controllers
             {
                 if (!ModelState.IsValid)
                     return View();
+
+                contasPagarViewModel.Valor /= 100.0M;
 
                 var token = await GetToken();
                 var result = await _contasPagarService.Adicionar(contasPagarViewModel, token);
@@ -59,6 +69,9 @@ namespace SGL.WebUI.Controllers
         {
             var token = await GetToken();
             var contasPagar = await _contasPagarService.ObterContasPagarPorId(id, token);
+            var fornecedor = await _fornecedorService.ObterTodosFornecedores(token);
+            contasPagar.FornecedorViewModels = fornecedor.ToList();
+            contasPagar.StatusVieModels = _contasPagarService.TodosStatus();
             return View(contasPagar);
         }
 
@@ -66,13 +79,15 @@ namespace SGL.WebUI.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize]
-        public async Task<IActionResult> Edit(ContasPagarViewModel ContasPagarViewModel)
+        public async Task<IActionResult> Edit(ContasPagarViewModel contasPagarViewModel)
         {
             if (!ModelState.IsValid)
                 return View();
 
+            contasPagarViewModel.Valor /= 100.0M;
+
             var token = await GetToken();
-            var result = await _contasPagarService.Atualizar(ContasPagarViewModel, token);
+            var result = await _contasPagarService.Atualizar(contasPagarViewModel, token);
 
             return RedirectToAction(nameof(Index));
         }
@@ -82,8 +97,8 @@ namespace SGL.WebUI.Controllers
         public async Task<IActionResult> Details(Guid id)
         {
             var token = await GetToken();
-            var ContasPagar = await _contasPagarService.ObterContasPagarPorId(id, token);
-            return View(ContasPagar);
+            var contasPagar = await _contasPagarService.ObterContasPagarPorId(id, token);
+            return View(contasPagar);
         }
     }
 }

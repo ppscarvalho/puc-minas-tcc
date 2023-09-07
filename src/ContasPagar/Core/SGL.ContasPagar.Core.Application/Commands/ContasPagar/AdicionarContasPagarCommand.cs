@@ -9,17 +9,15 @@ namespace SGL.ContasPagar.Core.Application.Commands.ContasPagar
         public string? Descricao { get; private set; }
         public DateTime DataVencimento { get; private set; }
         public decimal Valor { get; private set; }
-        public string? Situacao { get; private set; }
 
         public AdicionarContasPagarCommand() { }
 
-        public AdicionarContasPagarCommand(Guid fornecedorId, string? descricao, DateTime dataVencimento, decimal valor, string situacao)
+        public AdicionarContasPagarCommand(Guid fornecedorId, string? descricao, DateTime dataVencimento, decimal valor)
         {
             FornecedorId = fornecedorId;
             Descricao = descricao;
             DataVencimento = dataVencimento;
             Valor = valor;
-            Situacao = situacao;
         }
 
         public override bool IsValid()

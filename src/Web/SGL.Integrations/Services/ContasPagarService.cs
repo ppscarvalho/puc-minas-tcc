@@ -26,6 +26,12 @@ namespace SGL.Integrations.Services
             return await _contasPagarClient.ObterTodasContasPagar(token);
         }
 
+        public IEnumerable<StatusViewModel> TodosStatus()
+        {
+            var states = new StatusViewModel();
+            return states.ObterTodosStatus();
+        }
+
         public async Task<DefaultResult> Adicionar(ContasPagarViewModel contasPagarViewModel, string token)
         {
             return await _contasPagarClient.Adicionar(contasPagarViewModel, token);

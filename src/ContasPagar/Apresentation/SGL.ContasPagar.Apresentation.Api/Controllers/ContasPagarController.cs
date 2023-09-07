@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SGL.ContasPagar.Apresentation.Api.Configurations;
 using SGL.ContasPagar.Apresentation.Api.Controllers.BaseController;
 using SGL.ContasPagar.Core.Application.Commands.ContasPagar;
 using SGL.ContasPagar.Core.Application.Models;
@@ -43,11 +45,12 @@ namespace SGL.ContasPagar.Apresentation.Api.Controllers
         [Route("obter-por-id")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(ContasPagarModel), StatusCodes.Status200OK)]
+        [Authorize]
         public async Task<IActionResult> ObterContasPagarPorId([FromQuery] Guid id)
         {
             _logger.LogInformation("Obter contas a Pagar por id");
             var result = await _mediatorQuery.Send(new ObterContasPagarPorIdQuery(id));
-
+            result.ResponseFornecedorOut = await ObterFornecedorPorFornecedorId(result.FornecedorId);
             return Ok(result);
         }
 
@@ -55,11 +58,12 @@ namespace SGL.ContasPagar.Apresentation.Api.Controllers
         [Route("obter-todas")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(ContasPagarModel), StatusCodes.Status200OK)]
+        [Authorize]
         public async Task<IActionResult> ObterTodasContasPagar()
         {
             _logger.LogInformation("Obter todas as contas a Pagar");
             var result = await _mediatorQuery.Send(new ObterTodasContasPagarQuery());
-            await ObterFornecedorPorId(result);
+            await ObterFornecedorPorContaPagar(result);
             return Ok(result);
         }
 
@@ -68,6 +72,7 @@ namespace SGL.ContasPagar.Apresentation.Api.Controllers
         [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = Role.Admin)]
         public async Task<ActionResult<DefaultResult>> AdicionarContasPagar([FromBody] ContasPagarModel contasPagarModel)
         {
             var cmd = _mapper.Map<AdicionarContasPagarCommand>(contasPagarModel);
@@ -84,6 +89,7 @@ namespace SGL.ContasPagar.Apresentation.Api.Controllers
         [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = Role.Admin)]
         public async Task<ActionResult<DefaultResult>> AtualizarContasPagar([FromBody] ContasPagarModel contasPagarModel)
         {
             var cmd = _mapper.Map<AtualizarContasPagarCommand>(contasPagarModel);
@@ -95,7 +101,7 @@ namespace SGL.ContasPagar.Apresentation.Api.Controllers
                 return BadRequest(GetMessageError());
         }
 
-        private async Task ObterFornecedorPorId(IEnumerable<ResponseContasPagarOut> result)
+        private async Task ObterFornecedorPorContaPagar(IEnumerable<ResponseContasPagarOut> result)
         {
             var mapIn = new RequestIn
             {
@@ -115,6 +121,19 @@ namespace SGL.ContasPagar.Apresentation.Api.Controllers
                     CNPJ = fornecedor?.CNPJ
                 };
             }
+        }
+
+        private async Task<ResponseFornecedorOut> ObterFornecedorPorFornecedorId(Guid fornecedorId)
+        {
+            var mapIn = new RequestIn
+            {
+                Host = "localhost",
+                Result = fornecedorId.ToString(),
+                Queue = "ObterFornecedorPorId",
+            };
+
+            var resp = await _publish.DoRPC<RequestIn, ResponseFornecedorOut>(mapIn);
+            return _mapper.Map<ResponseFornecedorOut>(resp);
         }
     }
 }
