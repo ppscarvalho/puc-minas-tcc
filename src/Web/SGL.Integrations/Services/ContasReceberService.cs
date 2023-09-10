@@ -2,6 +2,7 @@
 using SGL.Integrations.Htpp.ContasReceber;
 using SGL.Integrations.Interfaces;
 using SGL.Integrations.ViewModels;
+using SGL.Resource.Util;
 
 namespace SGL.Integrations.Services
 {
@@ -15,14 +16,30 @@ namespace SGL.Integrations.Services
             _contasReceberClient = contasReceberClient;
         }
 
-        public async Task<ContasReceberViewModel> ObterContasReceberPorId(Guid id)
+        public async Task<ContasReceberViewModel> ObterContasReceberPorId(Guid id, string token)
         {
-            return await _contasReceberClient.ObterContasReceberPorId(id);
+            return await _contasReceberClient.ObterContasReceberPorId(id, token);
         }
 
-        public async Task<IEnumerable<ContasReceberViewModel>> ObterTodasContasReceber()
+        public async Task<IEnumerable<ContasReceberViewModel>> ObterTodosContasRecebers(string token)
         {
-            return await _contasReceberClient.ObterTodasContasReceber();
+            return await _contasReceberClient.ObterTodasContasReceber(token);
+        }
+
+        public IEnumerable<ContasReceberSituacaoViewModel> TodosStatus()
+        {
+            var states = new ContasReceberSituacaoViewModel();
+            return states.ObterTodas();
+        }
+
+        public async Task<DefaultResult> Adicionar(ContasReceberViewModel contasReceberViewModel, string token)
+        {
+            return await _contasReceberClient.Adicionar(contasReceberViewModel, token);
+        }
+
+        public async Task<DefaultResult> Atualizar(ContasReceberViewModel contasReceberViewModel, string token)
+        {
+            return await _contasReceberClient.Atualizar(contasReceberViewModel, token);
         }
     }
 }

@@ -29,7 +29,7 @@ namespace SGL.Integrations.ViewModels
         public FornecedorViewModel? FornecedorViewModel { get; set; }
         public ResponseFornecedorOut? ResponseFornecedorOut { get; set; }
 
-        public IEnumerable<StatusViewModel?>? StatusVieModels { get; set; }
+        public IEnumerable<ContasReceberSituacaoViewModel?>? StatusVieModels { get; set; }
 
         public string ObterSituacao
         {

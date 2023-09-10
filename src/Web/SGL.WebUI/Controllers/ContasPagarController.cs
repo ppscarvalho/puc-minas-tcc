@@ -29,10 +29,10 @@ namespace SGL.WebUI.Controllers
         public async Task<ActionResult> Create()
         {
             var token = await GetToken();
-            var fornecedor = await _fornecedorService.ObterTodosFornecedores(token);
+            var fornecedores = await _fornecedorService.ObterTodosFornecedores(token);
             var contasPagar = new ContasPagarViewModel
             {
-                FornecedorViewModels = fornecedor.ToList(),
+                FornecedorViewModels = fornecedores.ToList(),
                 StatusVieModels = _contasPagarService.TodosStatus()
             };
 

@@ -7,7 +7,7 @@ namespace SGL.Integrations.Interfaces
     {
         Task<ContasPagarViewModel> ObterContasPagarPorId(Guid id, string token);
         Task<IEnumerable<ContasPagarViewModel>> ObterTodosContasPagars(string token);
-        IEnumerable<StatusViewModel> TodosStatus();
+        IEnumerable<ContasReceberSituacaoViewModel> TodosStatus();
         Task<DefaultResult> Adicionar(ContasPagarViewModel contasPagarViewModel, string token);
         Task<DefaultResult> Atualizar(ContasPagarViewModel contasPagarViewModel, string token);
     }

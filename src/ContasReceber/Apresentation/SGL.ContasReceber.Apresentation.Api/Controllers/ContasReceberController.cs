@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SGL.ContasReceber.Apresentation.Api.Configurations;
 using SGL.ContasReceber.Apresentation.Api.Controllers.BaseController;
 using SGL.ContasReceber.Core.Application.Commands.ContasReceber;
 using SGL.ContasReceber.Core.Application.Models;
@@ -43,11 +45,12 @@ namespace SGL.ContasReceber.Apresentation.Api.Controllers
         [Route("obter-por-id")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(ContasReceberModel), StatusCodes.Status200OK)]
+        [Authorize]
         public async Task<IActionResult> ObterContasReceberPorId([FromQuery] Guid id)
         {
             _logger.LogInformation("Obter contas a receber por id");
             var result = await _mediatorQuery.Send(new ObterContasReceberPorIdQuery(id));
-
+            result.ResponseClienteOut = await ObterClientePorClienteId(result.ClienteId);
             return Ok(result);
         }
 
@@ -55,11 +58,12 @@ namespace SGL.ContasReceber.Apresentation.Api.Controllers
         [Route("obter-todas")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(ContasReceberModel), StatusCodes.Status200OK)]
+        [Authorize]
         public async Task<IActionResult> ObterTodasContasReceber()
         {
             _logger.LogInformation("Obter todas as contas a receber");
             var result = await _mediatorQuery.Send(new ObterTodasContasReceberQuery());
-            await ObterClientePorId(result);
+            await ObterClientePorContasReceber(result);
             return Ok(result);
         }
 
@@ -68,6 +72,7 @@ namespace SGL.ContasReceber.Apresentation.Api.Controllers
         [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = Role.Admin)]
         public async Task<ActionResult<DefaultResult>> AdicionarContasReceber([FromBody] ContasReceberModel contasReceberModel)
         {
             var cmd = _mapper.Map<AdicionarContasReceberCommand>(contasReceberModel);
@@ -84,6 +89,7 @@ namespace SGL.ContasReceber.Apresentation.Api.Controllers
         [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(DefaultResult), StatusCodes.Status500InternalServerError)]
+        [Authorize(Roles = Role.Admin)]
         public async Task<ActionResult<DefaultResult>> AtualizarContasReceber([FromBody] ContasReceberModel contasReceberModel)
         {
             var cmd = _mapper.Map<AtualizarContasReceberCommand>(contasReceberModel);
@@ -95,7 +101,7 @@ namespace SGL.ContasReceber.Apresentation.Api.Controllers
                 return BadRequest(GetMessageError());
         }
 
-        private async Task ObterClientePorId(IEnumerable<ResponseContasReceberOut> result)
+        private async Task ObterClientePorContasReceber(IEnumerable<ResponseContasReceberOut> result)
         {
             var mapIn = new RequestIn
             {
@@ -115,6 +121,19 @@ namespace SGL.ContasReceber.Apresentation.Api.Controllers
                     CPF = cliente?.CPF
                 };
             }
+        }
+
+        private async Task<ResponseClienteOut> ObterClientePorClienteId(Guid clienteId)
+        {
+            var mapIn = new RequestIn
+            {
+                Host = "localhost",
+                Result = clienteId.ToString(),
+                Queue = "ObterClientePorId",
+            };
+
+            var resp = await _publish.DoRPC<RequestIn, ResponseClienteOut>(mapIn);
+            return _mapper.Map<ResponseClienteOut>(resp);
         }
     }
 }
