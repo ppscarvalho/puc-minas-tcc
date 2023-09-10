@@ -13,6 +13,8 @@ namespace SGL.ContasReceber.Core.Application.Commands.ContasReceber
         public decimal Valor { get; private set; }
         public ESituacao Situacao { get; private set; }
 
+        public AtualizarContasReceberCommand() { }
+
         public AtualizarContasReceberCommand(Guid id, Guid customerId, string? description, DateTime dueDate, decimal value)
         {
             Id = id;

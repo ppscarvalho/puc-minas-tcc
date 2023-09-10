@@ -1,4 +1,5 @@
 ﻿using SGL.ContasPagar.Core.Application.Commands.ContasPagar.Validation;
+using SGL.ContasPagar.Core.Domain.Enuns;
 using SGL.Resource.Messagens;
 
 namespace SGL.ContasPagar.Core.Application.Commands.ContasPagar
@@ -9,6 +10,7 @@ namespace SGL.ContasPagar.Core.Application.Commands.ContasPagar
         public string? Descricao { get; private set; }
         public DateTime DataVencimento { get; private set; }
         public decimal Valor { get; private set; }
+        public ESituacao Situacao { get; private set; }
 
         public AdicionarContasPagarCommand() { }
 
@@ -18,6 +20,7 @@ namespace SGL.ContasPagar.Core.Application.Commands.ContasPagar
             Descricao = descricao;
             DataVencimento = dataVencimento;
             Valor = valor;
+            Situacao = ESituacao.A_Pagar;
         }
 
         public override bool IsValid()

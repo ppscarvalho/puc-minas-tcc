@@ -1,4 +1,4 @@
-﻿@model ContasPagarViewModel
+﻿@model ContasReceberViewModel
 <!-- Content Wrapper. Contains page content -->
 <style>
     label:not(.form-check-label):not(.custom-file-label) {
@@ -14,7 +14,7 @@
             <!-- Horizontal Form -->
             <div class="card card-info">
                 <div class="card-header">
-                    <h3 class="card-title">Detalhes de Contas a Pagar</h3>
+                    <h3 class="card-title">Detalhes de Contas a Receber</h3>
                 </div>
                 <div class="card-body">
                     <div class="form-group row">
@@ -24,9 +24,9 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label asp-for="FornecedorId" class="col-sm-2 col-form-label"></label>
+                        <label asp-for="ClienteId" class="col-sm-2 col-form-label"></label>
                         <div class="col-sm-10">
-                              <span class="form-control">@Html.DisplayFor(model => model.ResponseFornecedorOut.RazaoSocial)</span>
+                              <span class="form-control">@Html.DisplayFor(model => model.ResponseClienteOut.Nome)</span>
                         </div>
                     </div>
 

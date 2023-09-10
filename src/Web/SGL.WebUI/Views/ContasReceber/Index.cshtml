@@ -10,7 +10,10 @@
                 <div class="card-header">
                     <h3 class="card-title">Lista de Contas a Receber</h3>
                     <div style="text-align:right; margin-top: 10px">
-                        <a asp-controller="ContasReceber" asp-action="Create" class="btn btn-success"> Novo Cadastro</a>
+                        @if (User.IsInRole("Administrador"))
+                        {
+                            <a asp-controller="ContasReceber" asp-action="Create" class="btn btn-success"> Novo Cadastro</a>
+                        }
                     </div>
                 </div>
             </div>
@@ -37,7 +40,7 @@
                                     @Html.DisplayNameFor(model => model.Valor)
                                 </th>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Situacao)
+                                    @Html.DisplayNameFor(model => model.ObterSituacao)
                                 </th>
                                 <th>Ações</th>
                             </tr>
@@ -65,15 +68,25 @@
                                             @Html.DisplayFor(modelItem => item.Valor)
                                         </td>
                                         <td style="text-align:center;">
-                                            @Html.DisplayFor(modelItem => item.Situacao)
+                                            @Html.DisplayFor(modelItem => item.ObterSituacao)
                                         </td>
                                         <td>
-                                            <a asp-controller="ContasReceber" asp-action="Edit" asp-route-id="@item.Id">
-                                                <i class="bi bi-pencil-square btn btn-primary" aria-hidden="true" title="Editar"></i>
-                                            </a>
-                                            <a asp-controller="ContasReceber" asp-action="Details" asp-route-id="@item.Id">
-                                                <i class="bi bi-ticket-detailed btn btn-info" aria-hidden="true" title="Details"></i>
-                                            </a>
+                                            @if (User.IsInRole("Administrador"))
+                                            {
+                                                <a asp-controller="ContasReceber" asp-action="Edit" asp-route-id="@item.Id">
+                                                    <i class="bi bi-pencil-square btn btn-primary" aria-hidden="true" title="Editar"></i>
+                                                </a>
+
+                                                <a asp-controller="ContasReceber" asp-action="Baixar" asp-route-id="@item.Id">
+                                                    <i class="bi bi-cash-stack btn btn-success" aria-hidden="true" title="Baixar Conta"></i>
+                                                </a>
+                                            }
+                                            @if (User.IsInRole("Administrador") || User.IsInRole("Operador"))
+                                            {
+                                                <a asp-controller="ContasReceber" asp-action="Details" asp-route-id="@item.Id">
+                                                    <i class="bi bi-ticket-detailed btn btn-info" aria-hidden="true" title="Details"></i>
+                                                </a>
+                                            }
                                         </td>
                                     </tr>
                                 }
