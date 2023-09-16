@@ -22,10 +22,9 @@
 <br/>-&nbsp;Ocelot
 <br/>-&nbsp;Duente Identyti Server
 
-##### Arquitetura da API SM.Catalog (Store Management) - Gestão de Loja
+##### Arquitetura do Projeto - Sistema de Gestão de Loja
 
-SM.Catalog
-<br/>#####-Core
+<br/>Core
 <br/>&nbsp; -SGL.Cliente.Core.Application
 <br/>&nbsp; -SGL.Cliente.Core.Domain
 <br/>&nbsp; -SGL.Fornecedor.Core.Application
@@ -38,14 +37,16 @@ SM.Catalog
 <br/>&nbsp; -SGL.ContasReceber.Core.Domain
 <br/>&nbsp; -SGL.LancamentoVendas.Core.Application
 <br/>&nbsp; -SGL.LancamentoVendas.Core.Domain
-<br/>#####-Infrastructure
+<br/>
+<br/>Infrastructure
 <br/>&nbsp; -SGL.Cliente.Infrastructure
 <br/>&nbsp; -SGL.Fornecedor.Infrastructure
 <br/>&nbsp; -SGL.Produto.Infrastructure
 <br/>&nbsp; -SGL.ContasPagar.Infrastructure
 <br/>&nbsp; -SGL.ContasReceber.Infrastructure
 <br/>&nbsp; -SGL.LancamentoVendas.Infrastructure
-<br/>#####-Apresentation
+<br/>
+<br/>Apresentation
 <br/>&nbsp; -SGL.WebUI
 <br/>&nbsp; -SGL.IdentityServer
 <br/>&nbsp; -SGL.APIGateway
